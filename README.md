@@ -8,9 +8,9 @@ Instalar a través del archivo `pubspec.yaml` añadiendo la dependencia:
 
 ```yaml
 dependencies:
-  remote_datasource:
+  http_provider:
     git:
-      url: https://github.com/sudo-poporin/http_provider.git
+      url: https://github.com/sudo-poporin/http_provider
       ref: main
 ```
 
