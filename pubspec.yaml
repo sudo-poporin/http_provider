@@ -1,6 +1,6 @@
 name: http_provider
 description: Paquete para obtener información de forma remota.
-version: 1.0.10
+version: 1.0.11
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
