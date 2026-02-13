@@ -222,30 +222,6 @@ class MockHTTPProvider implements IHTTPProvider {
 }
 ```
 
-### Ejemplo de test
-
-```dart
-import 'package:test/test.dart';
-
-void main() {
-  group('MyRepository', () {
-    late MockHTTPProvider mockProvider;
-    late MyRepository repository;
-
-    setUp(() {
-      mockProvider = MockHTTPProvider();
-      repository = MyRepository(httpProvider: mockProvider);
-    });
-
-    test('should return data on success', () async {
-      final result = await repository.fetchData();
-
-      expect(result.isRight(), true);
-    });
-  });
-}
-```
-
 ## API Reference 📚
 
 ### HTTPProvider
