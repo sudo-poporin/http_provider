@@ -190,38 +190,6 @@ tipos:
 | `defaultError` | Error genérico del servidor |
 | `unexpectedError` | Error inesperado |
 
-## Testing 🧪
-
-El paquete exporta `IHTTPProvider` para facilitar el mocking en tests:
-
-```dart
-import 'package:http_provider/http_provider.dart';
-import 'package:fpdart/fpdart.dart';
-
-class MockHTTPProvider implements IHTTPProvider {
-  @override
-  Future<Either<NetworkException, T>> get<T>(
-    String path, {
-    Map<String, dynamic> queryParameters = const {},
-    Options? options,
-  }) async {
-    // Simular respuesta exitosa
-    return Right({'data': 'mock'} as T);
-  }
-
-  @override
-  Future<Either<NetworkException, T>> post<T>(
-    String path, {
-    dynamic data,
-    Options? options,
-    Map<String, dynamic> queryParameters = const {},
-  }) async {
-    // Simular respuesta exitosa
-    return Right({'created': true} as T);
-  }
-}
-```
-
 ## API Reference 📚
 
 ### HTTPProvider
