@@ -1,17 +1,17 @@
 name: http_provider
 description: Paquete para obtener información de forma remota.
-version: 1.0.13
+version: 1.0.14
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
 
 dependencies:
-  dio: ^5.9.1
+  dio: ^5.9.2
   fpdart: ^1.2.0
   freezed_annotation: ^3.1.0
 
 dev_dependencies:
-  build_runner: ^2.11.1
+  build_runner: ^2.13.1
   freezed: ^3.2.5
-  test: ^1.30.0
+  test: ^1.31.0
   very_good_analysis: ^10.2.0
