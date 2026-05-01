@@ -1,0 +1,53 @@
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: stable
+
+      - name: Install dependencies
+        run: dart pub get
+
+      - name: Analyze
+        run: dart analyze --fatal-infos
+
+      - name: Activate coverage tool
+        run: dart pub global activate coverage
+
+      - name: Run tests with coverage
+        run: dart test --coverage=coverage
+
+      - name: Format coverage to lcov
+        run: |
+          dart pub global run coverage:format_coverage \
+            --check-ignore \
+            --packages=.dart_tool/package_config.json \
+            --report-on=lib \
+            --lcov \
+            -o coverage/lcov.info \
+            -i coverage
+
+      - name: Verify coverage threshold
+        uses: VeryGoodOpenSource/very_good_coverage@v3
+        with:
+          path: coverage/lcov.info
+          min_coverage: 100
+
+      - name: Upload coverage artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage/lcov.info

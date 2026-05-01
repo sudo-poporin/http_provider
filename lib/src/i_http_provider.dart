@@ -18,4 +18,7 @@ abstract interface class IHTTPProvider {
     Options? options,
     Map<String, dynamic> queryParameters = const {},
   });
+
+  /// Cierra el cliente HTTP y libera recursos.
+  void close({bool force = false});
 }

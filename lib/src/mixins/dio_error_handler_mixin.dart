@@ -5,81 +5,67 @@ import 'package:http_provider/src/exceptions/network_exception.dart';
 
 /// Mixin para manejo de errores de Dio.
 mixin DioErrorHandler {
-  /// Procesa las excepciones de Dio.
-  NetworkException manageNetworkException(dynamic error) {
-    if (error is Exception) {
-      try {
-        NetworkException networkExceptions;
-        if (error is DioException) {
-          final message =
-              'Error: ${error.message} - '
-              'Uri: ${error.requestOptions.uri} - '
-              'Headers: ${error.requestOptions.headers} - '
-              'Request Data: ${error.requestOptions.data}';
+  /// Procesa las excepciones de Dio y las mapea a [NetworkException].
+  NetworkException manageNetworkException(Exception error) {
+    if (error is DioException) {
+      final message =
+          'Error: ${error.message} - '
+          'Uri: ${error.requestOptions.uri} - '
+          'Headers: ${error.requestOptions.headers} - '
+          'Request Data: ${error.requestOptions.data}';
 
-          switch (error.type) {
-            case DioExceptionType.sendTimeout:
-              networkExceptions = NetworkException.sendTimeout(message);
-            case DioExceptionType.connectionTimeout:
-              networkExceptions = NetworkException.connectionTimeout(message);
-            case DioExceptionType.receiveTimeout:
-              networkExceptions = NetworkException.receiveTimeout(message);
-            case DioExceptionType.badResponse:
-              switch (error.response?.statusCode) {
-                case 400:
-                  networkExceptions = NetworkException.badRequest(message);
-
-                case 401:
-                  networkExceptions = NetworkException.unauthorized(message);
-
-                case 403:
-                  networkExceptions = NetworkException.forbidden(message);
-
-                case 404:
-                  networkExceptions = NetworkException.notFound(message);
-
-                case 500:
-                  networkExceptions = NetworkException.internalServerError(
-                    message,
-                  );
-
-                case 503:
-                  networkExceptions = NetworkException.serviceUnavailable(
-                    message,
-                  );
-
-                default:
-                  networkExceptions = NetworkException.defaultError(message);
-              }
-
-            case DioExceptionType.connectionError:
-              networkExceptions = NetworkException.noInternetConnection(
-                message,
-              );
-            case DioExceptionType.badCertificate:
-              networkExceptions = NetworkException.badCertificate(message);
-            case DioExceptionType.cancel:
-              networkExceptions = NetworkException.requestCancelled(message);
-            case DioExceptionType.unknown:
-              networkExceptions = NetworkException.defaultError(message);
-          }
-        } else if (error is SocketException) {
-          networkExceptions = NetworkException.noInternetConnection(error);
-        } else {
-          networkExceptions = NetworkException.unexpectedError(error);
-        }
-        return networkExceptions;
-      } on FormatException catch (e) {
-        return NetworkException.formatException(e);
-      } on Exception catch (e) {
-        return NetworkException.unexpectedError(e);
+      switch (error.type) {
+        case DioExceptionType.sendTimeout:
+          return NetworkException.sendTimeout(message);
+        case DioExceptionType.connectionTimeout:
+          return NetworkException.connectionTimeout(message);
+        case DioExceptionType.receiveTimeout:
+          return NetworkException.receiveTimeout(message);
+        case DioExceptionType.badResponse:
+          return _mapStatusCode(error.response?.statusCode, message);
+        case DioExceptionType.connectionError:
+          return NetworkException.noInternetConnection(message);
+        case DioExceptionType.badCertificate:
+          return NetworkException.badCertificate(message);
+        case DioExceptionType.cancel:
+          return NetworkException.requestCancelled(message);
+        case DioExceptionType.unknown:
+          return NetworkException.defaultError(message);
       }
-    } else {
-      if (error.toString().contains('is not a subtype of')) {
-        return NetworkException.unableToProcess(error);
-      } else {
-        return NetworkException.unexpectedError(error);
-      }
+    }
+    if (error is SocketException) {
+      return NetworkException.noInternetConnection(error);
+    }
+    if (error is FormatException) {
+      return NetworkException.formatException(error);
+    }
+    return NetworkException.unexpectedError(error);
+  }
+
+  NetworkException _mapStatusCode(int? statusCode, String message) {
+    switch (statusCode) {
+      case 400:
+        return NetworkException.badRequest(message);
+      case 401:
+        return NetworkException.unauthorized(message);
+      case 403:
+        return NetworkException.forbidden(message);
+      case 404:
+        return NetworkException.notFound(message);
+      case 405:
+        return NetworkException.methodNotAllowed(message);
+      case 406:
+        return NetworkException.notAcceptable(message);
+      case 409:
+        return NetworkException.conflict(message);
+      case 500:
+        return NetworkException.internalServerError(message);
+      case 501:
+        return NetworkException.notImplemented(message);
+      case 503:
+        return NetworkException.serviceUnavailable(message);
+      default:
+        return NetworkException.defaultError(message);
     }
   }
 }

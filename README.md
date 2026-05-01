@@ -1,5 +1,10 @@
 # HTTP Provider 📡
 
+[![Tests](https://github.com/sudo-poporin/http_provider/actions/workflows/test.yml/badge.svg)](https://github.com/sudo-poporin/http_provider/actions/workflows/test.yml)
+[![coverage: 100%](https://img.shields.io/badge/coverage-100%25-brightgreen)](https://github.com/sudo-poporin/http_provider/actions/workflows/test.yml)
+[![style: very good analysis](https://img.shields.io/badge/style-very_good_analysis-B22C89.svg)](https://pub.dev/packages/very_good_analysis)
+[![Dart](https://img.shields.io/badge/Dart-%230175C2.svg?logo=dart&logoColor=white)](https://dart.dev)
+
 Paquete para obtener información de forma remota mediante peticiones HTTP.
 
 ## Características ✨
@@ -32,6 +37,7 @@ dependencies:
 | `connectionTimeout` | `Duration` | 30 segundos | Tiempo máximo para establecer conexión |
 | `receiveTimeout` | `Duration` | 30 segundos | Tiempo máximo para recibir respuesta |
 | `headers` | `Map<String, dynamic>` | `{}` | Headers por defecto para todas las peticiones |
+| `client` | `Dio?` | `null` | Cliente Dio inyectable (útil para testing) |
 
 ### Ejemplo de configuración personalizada
 
@@ -255,3 +261,23 @@ Future<Either<NetworkException, T>> post<T>(
 | [dio](https://pub.dev/packages/dio) | Cliente HTTP |
 | [fpdart](https://pub.dev/packages/fpdart) | Patrón Either para manejo de errores |
 | [freezed](https://pub.dev/packages/freezed) | Generación de sealed classes |
+
+## Coverage 📊
+
+El paquete mantiene **100% de cobertura** de tests. El workflow de CI verifica
+el umbral en cada push y pull request.
+
+Generar el reporte de cobertura localmente:
+
+```bash
+dart pub global activate coverage
+dart test --coverage=coverage
+dart pub global run coverage:format_coverage \
+  --check-ignore \
+  --packages=.dart_tool/package_config.json \
+  --report-on=lib \
+  --lcov \
+  -o coverage/lcov.info \
+  -i coverage
+lcov --summary coverage/lcov.info
+```

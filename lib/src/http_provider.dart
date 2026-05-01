@@ -9,20 +9,30 @@ class HTTPProvider with DioErrorHandler implements IHTTPProvider {
     Duration connectionTimeout = const Duration(milliseconds: 30000),
     Duration receiveTimeout = const Duration(milliseconds: 30000),
     Map<String, dynamic> headers = const {},
-  }) : _dio = Dio(),
-       _connectionTimeout = connectionTimeout,
-       _receiveTimeout = receiveTimeout,
-       _headers = headers {
+    Dio? client,
+  }) : _dio = client ?? Dio() {
     _dio
-      ..options.connectTimeout = _connectionTimeout
-      ..options.receiveTimeout = _receiveTimeout
-      ..options.headers = _headers;
+      ..options.connectTimeout = connectionTimeout
+      ..options.receiveTimeout = receiveTimeout
+      ..options.headers = headers;
   }
 
   final Dio _dio;
-  final Duration _connectionTimeout;
-  final Duration _receiveTimeout;
-  final Map<String, dynamic> _headers;
+
+  @override
+  Future<Either<NetworkException, T>> get<T>(
+    String path, {
+    Map<String, dynamic> queryParameters = const {},
+    Options? options,
+  }) {
+    return _request<T>(
+      () => _dio.get<dynamic>(
+        path,
+        queryParameters: queryParameters,
+        options: options ?? Options(),
+      ),
+    );
+  }
 
   @override
   Future<Either<NetworkException, T>> post<T>(
@@ -30,41 +40,34 @@ class HTTPProvider with DioErrorHandler implements IHTTPProvider {
     dynamic data,
     Options? options,
     Map<String, dynamic> queryParameters = const {},
-  }) async {
-    try {
-      final response =
-          await _dio.post<dynamic>(
-                path,
-                data: data,
-                options: options ?? Options(),
-                queryParameters: queryParameters,
-              )
-              as T;
+  }) {
+    return _request<T>(
+      () => _dio.post<dynamic>(
+        path,
+        data: data,
+        options: options ?? Options(),
+        queryParameters: queryParameters,
+      ),
+    );
+  }
 
-      return Right(response);
+  Future<Either<NetworkException, T>> _request<T>(
+    Future<Response<dynamic>> Function() action,
+  ) async {
+    try {
+      final response = await action();
+      return Right(response as T);
     } on Exception catch (e) {
-      return Left(super.manageNetworkException(e));
+      return Left(manageNetworkException(e));
+    }
+    // El cast `as T` puede lanzar TypeError si T no coincide con la respuesta.
+    // ignore: avoid_catching_errors
+    on TypeError catch (e) {
+      return Left(NetworkException.unableToProcess(e));
     }
   }
 
+  /// Cierra el cliente Dio subyacente y libera recursos asociados.
   @override
-  Future<Either<NetworkException, T>> get<T>(
-    String path, {
-    Map<String, dynamic> queryParameters = const {},
-    Options? options,
-  }) async {
-    try {
-      final response =
-          await _dio.get<dynamic>(
-                path,
-                queryParameters: queryParameters,
-                options: options ?? Options(),
-              )
-              as T;
-
-      return Right(response);
-    } on Exception catch (e) {
-      return Left(super.manageNetworkException(e));
-    }
-  }
+  void close({bool force = false}) => _dio.close(force: force);
 }
