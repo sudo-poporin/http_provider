@@ -12,7 +12,7 @@ Paquete para obtener información de forma remota mediante peticiones HTTP.
 - Soporte para peticiones GET y POST
 - Manejo de errores con patrón Either (fpdart)
 - Timeouts configurables (conexión y recepción)
-- 20+ tipos de excepciones específicas para diferentes escenarios
+- 21+ tipos de excepciones específicas para diferentes escenarios
 - Interface `IHTTPProvider` para testing y mocking
 - Exporta Dio directamente para configuración avanzada
 
@@ -145,6 +145,7 @@ responseEither.fold(
     requestTimeout: (msg) => print('Timeout de petición: $msg'),
     sendTimeout: (msg) => print('Timeout de envío: $msg'),
     conflict: (msg) => print('Conflicto: $msg'),
+    tooManyRequests: (msg) => print('Rate limit excedido: $msg'),
     notImplemented: (msg) => print('No implementado: $msg'),
     formatException: (msg) => print('Error de formato: $msg'),
     unableToProcess: (msg) => print('No se pudo procesar: $msg'),
@@ -171,6 +172,7 @@ tipos:
 | `methodNotAllowed` | 405 | Método no permitido |
 | `notAcceptable` | 406 | No aceptable |
 | `conflict` | 409 | Conflicto |
+| `tooManyRequests` | 429 | Rate limit excedido |
 | `internalServerError` | 500 | Error interno del servidor |
 | `notImplemented` | 501 | No implementado |
 | `serviceUnavailable` | 503 | Servicio no disponible |
@@ -261,23 +263,3 @@ Future<Either<NetworkException, T>> post<T>(
 | [dio](https://pub.dev/packages/dio) | Cliente HTTP |
 | [fpdart](https://pub.dev/packages/fpdart) | Patrón Either para manejo de errores |
 | [freezed](https://pub.dev/packages/freezed) | Generación de sealed classes |
-
-## Coverage 📊
-
-El paquete mantiene **100% de cobertura** de tests. El workflow de CI verifica
-el umbral en cada push y pull request.
-
-Generar el reporte de cobertura localmente:
-
-```bash
-dart pub global activate coverage
-dart test --coverage=coverage
-dart pub global run coverage:format_coverage \
-  --check-ignore \
-  --packages=.dart_tool/package_config.json \
-  --report-on=lib \
-  --lcov \
-  -o coverage/lcov.info \
-  -i coverage
-lcov --summary coverage/lcov.info
-```
