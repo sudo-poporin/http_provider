@@ -173,5 +173,46 @@ void main() {
         expect(captured.single, isA<DioRetriesExhaustedException>());
       });
     });
+
+    test('requests concurrentes no comparten counter', () {
+      fakeAsync((async) {
+        final reqOptionsA = RequestOptions(path: '/a');
+        final reqOptionsB = RequestOptions(path: '/b');
+
+        final errA = DioException(
+          requestOptions: reqOptionsA,
+          response: Response<dynamic>(
+            requestOptions: reqOptionsA,
+            statusCode: 429,
+          ),
+          type: DioExceptionType.badResponse,
+        );
+        final errB = DioException(
+          requestOptions: reqOptionsB,
+          response: Response<dynamic>(
+            requestOptions: reqOptionsB,
+            statusCode: 429,
+          ),
+          type: DioExceptionType.badResponse,
+        );
+
+        when(() => dio.fetch<dynamic>(any())).thenAnswer(
+          (invocation) async => Response<dynamic>(
+            requestOptions:
+                invocation.positionalArguments.first as RequestOptions,
+            statusCode: 200,
+          ),
+        );
+
+        unawaited(interceptor.onError(errA, handler));
+        unawaited(interceptor.onError(errB, handler));
+        async
+          ..elapse(const Duration(milliseconds: 500))
+          ..flushMicrotasks();
+
+        expect(reqOptionsA.extra['http_provider.retryAttempt'], 1);
+        expect(reqOptionsB.extra['http_provider.retryAttempt'], 1);
+      });
+    });
   });
 }
