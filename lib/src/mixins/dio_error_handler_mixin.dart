@@ -2,11 +2,20 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:http_provider/src/exceptions/network_exception.dart';
+import 'package:http_provider/src/interceptors/retry_interceptor.dart';
 
 /// Mixin para manejo de errores de Dio.
 mixin DioErrorHandler {
   /// Procesa las excepciones de Dio y las mapea a [NetworkException].
   NetworkException manageNetworkException(Exception error) {
+    if (error is DioRetriesExhaustedException) {
+      return NetworkException.retriesExhausted(
+        'Error: ${error.message} - '
+        'Uri: ${error.requestOptions.uri} - '
+        'Headers: ${error.requestOptions.headers} - '
+        'Request Data: ${error.requestOptions.data}',
+      );
+    }
     if (error is DioException) {
       final message =
           'Error: ${error.message} - '
