@@ -58,6 +58,8 @@ mixin DioErrorHandler {
         return NetworkException.notAcceptable(message);
       case 409:
         return NetworkException.conflict(message);
+      case 429:
+        return NetworkException.tooManyRequests(message);
       case 500:
         return NetworkException.internalServerError(message);
       case 501:

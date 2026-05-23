@@ -95,26 +95,28 @@ void main() {
         expect((result as Left).value, isA<NetworkException>());
       });
 
-      test('retorna unableToProcess cuando el cast falla (TypeError)',
-          () async {
-        when(
-          () => dio.get<dynamic>(
-            any(),
-            queryParameters: any(named: 'queryParameters'),
-            options: any(named: 'options'),
-          ),
-        ).thenAnswer(
-          (_) async =>
-              Response<dynamic>(requestOptions: RequestOptions(path: '/')),
-        );
+      test(
+        'retorna unableToProcess cuando el cast falla (TypeError)',
+        () async {
+          when(
+            () => dio.get<dynamic>(
+              any(),
+              queryParameters: any(named: 'queryParameters'),
+              options: any(named: 'options'),
+            ),
+          ).thenAnswer(
+            (_) async =>
+                Response<dynamic>(requestOptions: RequestOptions(path: '/')),
+          );
 
-        final result = await provider.get<String>('/path');
+          final result = await provider.get<String>('/path');
 
-        result.fold(
-          (e) => expect(e, isA<UnableToProcess>()),
-          (_) => fail('debería ser Left'),
-        );
-      });
+          result.fold(
+            (e) => expect(e, isA<UnableToProcess>()),
+            (_) => fail('debería ser Left'),
+          );
+        },
+      );
     });
 
     group('.post()', () {
@@ -243,6 +245,7 @@ void main() {
         405: MethodNotAllowed,
         406: NotAcceptable,
         409: Conflict,
+        429: TooManyRequests,
         500: InternalServerError,
         501: NotImplemented,
         503: ServiceUnavailable,
