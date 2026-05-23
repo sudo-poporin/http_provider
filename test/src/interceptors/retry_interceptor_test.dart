@@ -145,5 +145,33 @@ void main() {
         verifyNever(() => handler.resolve(any()));
       });
     });
+
+    test('429 persistente: tras maxRetries, propaga DioRetriesExhaustedException',
+        () {
+      fakeAsync((async) {
+        final reqOptions = RequestOptions(
+          path: '/test',
+          extra: <String, dynamic>{
+            'http_provider.retryAttempt': 2, // ya hizo maxRetries retries
+          },
+        );
+        final err = DioException(
+          requestOptions: reqOptions,
+          response: Response<dynamic>(
+            requestOptions: reqOptions,
+            statusCode: 429,
+          ),
+          type: DioExceptionType.badResponse,
+        );
+
+        unawaited(interceptor.onError(err, handler));
+        async.flushMicrotasks();
+
+        verifyNever(() => dio.fetch<dynamic>(any()));
+        final captured = verify(() => handler.next(captureAny())).captured;
+        expect(captured.length, 1);
+        expect(captured.single, isA<DioRetriesExhaustedException>());
+      });
+    });
   });
 }
