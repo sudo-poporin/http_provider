@@ -44,8 +44,20 @@ class RetryInterceptor extends Interceptor {
     if (status == null || !retryStatusCodes.contains(status)) {
       return handler.next(err);
     }
-    // Retry path se implementa en Task 6.
-    return handler.next(err);
+    final attempt =
+        (err.requestOptions.extra['http_provider.retryAttempt'] as int?) ?? 0;
+    if (attempt >= maxRetries) {
+      return handler.next(DioRetriesExhaustedException(err));
+    }
+    final delayMs = initialBackoffMs * (1 << attempt);
+    await Future<void>.delayed(Duration(milliseconds: delayMs));
+    err.requestOptions.extra['http_provider.retryAttempt'] = attempt + 1;
+    try {
+      final response = await dio.fetch<dynamic>(err.requestOptions);
+      handler.resolve(response);
+    } on DioException catch (e) {
+      handler.next(e);
+    }
   }
 }
 
