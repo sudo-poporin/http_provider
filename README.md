@@ -256,6 +256,29 @@ Future<Either<NetworkException, T>> post<T>(
 | `queryParameters` | `Map<String, dynamic>` | No | Parámetros de query string |
 | `options` | `Options?` | No | Opciones de Dio (headers, etc.) |
 
+## Retry Interceptor (v1.2.0+)
+
+`RetryInterceptor` reintenta requests con backoff exponencial cuando el response tiene un status code retriable (default: `429`). Tras agotar `maxRetries`, propaga `DioRetriesExhaustedException`, que el mixin mapea a `NetworkException.retriesExhausted`.
+
+```dart
+final provider = HTTPProvider(
+  interceptorsBuilder: (dio) => [
+    RetryInterceptor(
+      dio: dio,
+      maxRetries: 2,
+      initialBackoffMs: 500,
+      retryStatusCodes: const {429},
+    ),
+  ],
+);
+```
+
+Secuencia de delays con defaults: 500ms, 1000ms (peor caso 1.5s acumulado antes de que el último error se propague como `retriesExhausted`).
+
+**Aislamiento per-request:** el counter de retries vive en `requestOptions.extra['http_provider.retryAttempt']`, no como state del interceptor. Múltiples requests concurrentes no se afectan entre sí.
+
+**Aplica a `post` y `get`:** el interceptor es de Dio, opera sobre cualquier método HTTP.
+
 ## Dependencias 📦
 
 | Paquete | Uso |
