@@ -90,7 +90,7 @@ void main() {
       });
     });
 
-    test('429 → 429 → 200: 2 retries con backoff 500ms + 1000ms', () {
+    test('429 → primer retry falla 429: propaga handler.next con DioException', () {
       fakeAsync((async) {
         final reqOptions = RequestOptions(path: '/test');
         final err = DioException(

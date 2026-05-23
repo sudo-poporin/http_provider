@@ -58,6 +58,7 @@ void main() {
           ];
         },
       );
+      addTearDown(() => provider.close(force: true));
 
       expect(capturedDio, isNotNull);
       expect(provider, isA<HTTPProvider>());
