@@ -86,7 +86,7 @@ extension NetworkExceptionPatterns on NetworkException {
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RequestCancelled value)?  requestCancelled,TResult Function( UnauthorisedRequest value)?  unauthorized,TResult Function( BadRequest value)?  badRequest,TResult Function( BadCertificate value)?  badCertificate,TResult Function( Forbidden value)?  forbidden,TResult Function( NotFound value)?  notFound,TResult Function( MethodNotAllowed value)?  methodNotAllowed,TResult Function( NotAcceptable value)?  notAcceptable,TResult Function( ReceiveTimeout value)?  receiveTimeout,TResult Function( RequestTimeout value)?  requestTimeout,TResult Function( SendTimeout value)?  sendTimeout,TResult Function( ConnectionTimeout value)?  connectionTimeout,TResult Function( Conflict value)?  conflict,TResult Function( InternalServerError value)?  internalServerError,TResult Function( NotImplemented value)?  notImplemented,TResult Function( ServiceUnavailable value)?  serviceUnavailable,TResult Function( NoInternetConnection value)?  noInternetConnection,TResult Function( FormatException value)?  formatException,TResult Function( UnableToProcess value)?  unableToProcess,TResult Function( DefaultError value)?  defaultError,TResult Function( UnexpectedError value)?  unexpectedError,required TResult orElse(),}){
+@optionalTypeArgs TResult maybeMap<TResult extends Object?>({TResult Function( RequestCancelled value)?  requestCancelled,TResult Function( UnauthorisedRequest value)?  unauthorized,TResult Function( BadRequest value)?  badRequest,TResult Function( BadCertificate value)?  badCertificate,TResult Function( Forbidden value)?  forbidden,TResult Function( NotFound value)?  notFound,TResult Function( MethodNotAllowed value)?  methodNotAllowed,TResult Function( NotAcceptable value)?  notAcceptable,TResult Function( TooManyRequests value)?  tooManyRequests,TResult Function( ReceiveTimeout value)?  receiveTimeout,TResult Function( RequestTimeout value)?  requestTimeout,TResult Function( SendTimeout value)?  sendTimeout,TResult Function( ConnectionTimeout value)?  connectionTimeout,TResult Function( Conflict value)?  conflict,TResult Function( InternalServerError value)?  internalServerError,TResult Function( NotImplemented value)?  notImplemented,TResult Function( ServiceUnavailable value)?  serviceUnavailable,TResult Function( NoInternetConnection value)?  noInternetConnection,TResult Function( FormatException value)?  formatException,TResult Function( UnableToProcess value)?  unableToProcess,TResult Function( DefaultError value)?  defaultError,TResult Function( UnexpectedError value)?  unexpectedError,required TResult orElse(),}){
 final _that = this;
 switch (_that) {
 case RequestCancelled() when requestCancelled != null:
@@ -97,7 +97,8 @@ return badCertificate(_that);case Forbidden() when forbidden != null:
 return forbidden(_that);case NotFound() when notFound != null:
 return notFound(_that);case MethodNotAllowed() when methodNotAllowed != null:
 return methodNotAllowed(_that);case NotAcceptable() when notAcceptable != null:
-return notAcceptable(_that);case ReceiveTimeout() when receiveTimeout != null:
+return notAcceptable(_that);case TooManyRequests() when tooManyRequests != null:
+return tooManyRequests(_that);case ReceiveTimeout() when receiveTimeout != null:
 return receiveTimeout(_that);case RequestTimeout() when requestTimeout != null:
 return requestTimeout(_that);case SendTimeout() when sendTimeout != null:
 return sendTimeout(_that);case ConnectionTimeout() when connectionTimeout != null:
@@ -128,7 +129,7 @@ return unexpectedError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RequestCancelled value)  requestCancelled,required TResult Function( UnauthorisedRequest value)  unauthorized,required TResult Function( BadRequest value)  badRequest,required TResult Function( BadCertificate value)  badCertificate,required TResult Function( Forbidden value)  forbidden,required TResult Function( NotFound value)  notFound,required TResult Function( MethodNotAllowed value)  methodNotAllowed,required TResult Function( NotAcceptable value)  notAcceptable,required TResult Function( ReceiveTimeout value)  receiveTimeout,required TResult Function( RequestTimeout value)  requestTimeout,required TResult Function( SendTimeout value)  sendTimeout,required TResult Function( ConnectionTimeout value)  connectionTimeout,required TResult Function( Conflict value)  conflict,required TResult Function( InternalServerError value)  internalServerError,required TResult Function( NotImplemented value)  notImplemented,required TResult Function( ServiceUnavailable value)  serviceUnavailable,required TResult Function( NoInternetConnection value)  noInternetConnection,required TResult Function( FormatException value)  formatException,required TResult Function( UnableToProcess value)  unableToProcess,required TResult Function( DefaultError value)  defaultError,required TResult Function( UnexpectedError value)  unexpectedError,}){
+@optionalTypeArgs TResult map<TResult extends Object?>({required TResult Function( RequestCancelled value)  requestCancelled,required TResult Function( UnauthorisedRequest value)  unauthorized,required TResult Function( BadRequest value)  badRequest,required TResult Function( BadCertificate value)  badCertificate,required TResult Function( Forbidden value)  forbidden,required TResult Function( NotFound value)  notFound,required TResult Function( MethodNotAllowed value)  methodNotAllowed,required TResult Function( NotAcceptable value)  notAcceptable,required TResult Function( TooManyRequests value)  tooManyRequests,required TResult Function( ReceiveTimeout value)  receiveTimeout,required TResult Function( RequestTimeout value)  requestTimeout,required TResult Function( SendTimeout value)  sendTimeout,required TResult Function( ConnectionTimeout value)  connectionTimeout,required TResult Function( Conflict value)  conflict,required TResult Function( InternalServerError value)  internalServerError,required TResult Function( NotImplemented value)  notImplemented,required TResult Function( ServiceUnavailable value)  serviceUnavailable,required TResult Function( NoInternetConnection value)  noInternetConnection,required TResult Function( FormatException value)  formatException,required TResult Function( UnableToProcess value)  unableToProcess,required TResult Function( DefaultError value)  defaultError,required TResult Function( UnexpectedError value)  unexpectedError,}){
 final _that = this;
 switch (_that) {
 case RequestCancelled():
@@ -139,7 +140,8 @@ return badCertificate(_that);case Forbidden():
 return forbidden(_that);case NotFound():
 return notFound(_that);case MethodNotAllowed():
 return methodNotAllowed(_that);case NotAcceptable():
-return notAcceptable(_that);case ReceiveTimeout():
+return notAcceptable(_that);case TooManyRequests():
+return tooManyRequests(_that);case ReceiveTimeout():
 return receiveTimeout(_that);case RequestTimeout():
 return requestTimeout(_that);case SendTimeout():
 return sendTimeout(_that);case ConnectionTimeout():
@@ -169,7 +171,7 @@ return unexpectedError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RequestCancelled value)?  requestCancelled,TResult? Function( UnauthorisedRequest value)?  unauthorized,TResult? Function( BadRequest value)?  badRequest,TResult? Function( BadCertificate value)?  badCertificate,TResult? Function( Forbidden value)?  forbidden,TResult? Function( NotFound value)?  notFound,TResult? Function( MethodNotAllowed value)?  methodNotAllowed,TResult? Function( NotAcceptable value)?  notAcceptable,TResult? Function( ReceiveTimeout value)?  receiveTimeout,TResult? Function( RequestTimeout value)?  requestTimeout,TResult? Function( SendTimeout value)?  sendTimeout,TResult? Function( ConnectionTimeout value)?  connectionTimeout,TResult? Function( Conflict value)?  conflict,TResult? Function( InternalServerError value)?  internalServerError,TResult? Function( NotImplemented value)?  notImplemented,TResult? Function( ServiceUnavailable value)?  serviceUnavailable,TResult? Function( NoInternetConnection value)?  noInternetConnection,TResult? Function( FormatException value)?  formatException,TResult? Function( UnableToProcess value)?  unableToProcess,TResult? Function( DefaultError value)?  defaultError,TResult? Function( UnexpectedError value)?  unexpectedError,}){
+@optionalTypeArgs TResult? mapOrNull<TResult extends Object?>({TResult? Function( RequestCancelled value)?  requestCancelled,TResult? Function( UnauthorisedRequest value)?  unauthorized,TResult? Function( BadRequest value)?  badRequest,TResult? Function( BadCertificate value)?  badCertificate,TResult? Function( Forbidden value)?  forbidden,TResult? Function( NotFound value)?  notFound,TResult? Function( MethodNotAllowed value)?  methodNotAllowed,TResult? Function( NotAcceptable value)?  notAcceptable,TResult? Function( TooManyRequests value)?  tooManyRequests,TResult? Function( ReceiveTimeout value)?  receiveTimeout,TResult? Function( RequestTimeout value)?  requestTimeout,TResult? Function( SendTimeout value)?  sendTimeout,TResult? Function( ConnectionTimeout value)?  connectionTimeout,TResult? Function( Conflict value)?  conflict,TResult? Function( InternalServerError value)?  internalServerError,TResult? Function( NotImplemented value)?  notImplemented,TResult? Function( ServiceUnavailable value)?  serviceUnavailable,TResult? Function( NoInternetConnection value)?  noInternetConnection,TResult? Function( FormatException value)?  formatException,TResult? Function( UnableToProcess value)?  unableToProcess,TResult? Function( DefaultError value)?  defaultError,TResult? Function( UnexpectedError value)?  unexpectedError,}){
 final _that = this;
 switch (_that) {
 case RequestCancelled() when requestCancelled != null:
@@ -180,7 +182,8 @@ return badCertificate(_that);case Forbidden() when forbidden != null:
 return forbidden(_that);case NotFound() when notFound != null:
 return notFound(_that);case MethodNotAllowed() when methodNotAllowed != null:
 return methodNotAllowed(_that);case NotAcceptable() when notAcceptable != null:
-return notAcceptable(_that);case ReceiveTimeout() when receiveTimeout != null:
+return notAcceptable(_that);case TooManyRequests() when tooManyRequests != null:
+return tooManyRequests(_that);case ReceiveTimeout() when receiveTimeout != null:
 return receiveTimeout(_that);case RequestTimeout() when requestTimeout != null:
 return requestTimeout(_that);case SendTimeout() when sendTimeout != null:
 return sendTimeout(_that);case ConnectionTimeout() when connectionTimeout != null:
@@ -210,7 +213,7 @@ return unexpectedError(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( dynamic error)?  requestCancelled,TResult Function( dynamic error)?  unauthorized,TResult Function( dynamic error)?  badRequest,TResult Function( dynamic error)?  badCertificate,TResult Function( dynamic error)?  forbidden,TResult Function( dynamic error)?  notFound,TResult Function( dynamic error)?  methodNotAllowed,TResult Function( dynamic error)?  notAcceptable,TResult Function( dynamic error)?  receiveTimeout,TResult Function( dynamic error)?  requestTimeout,TResult Function( dynamic error)?  sendTimeout,TResult Function( dynamic error)?  connectionTimeout,TResult Function( dynamic error)?  conflict,TResult Function( dynamic error)?  internalServerError,TResult Function( dynamic error)?  notImplemented,TResult Function( dynamic error)?  serviceUnavailable,TResult Function( dynamic error)?  noInternetConnection,TResult Function( dynamic error)?  formatException,TResult Function( dynamic error)?  unableToProcess,TResult Function( dynamic error)?  defaultError,TResult Function( dynamic error)?  unexpectedError,required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>({TResult Function( dynamic error)?  requestCancelled,TResult Function( dynamic error)?  unauthorized,TResult Function( dynamic error)?  badRequest,TResult Function( dynamic error)?  badCertificate,TResult Function( dynamic error)?  forbidden,TResult Function( dynamic error)?  notFound,TResult Function( dynamic error)?  methodNotAllowed,TResult Function( dynamic error)?  notAcceptable,TResult Function( dynamic error)?  tooManyRequests,TResult Function( dynamic error)?  receiveTimeout,TResult Function( dynamic error)?  requestTimeout,TResult Function( dynamic error)?  sendTimeout,TResult Function( dynamic error)?  connectionTimeout,TResult Function( dynamic error)?  conflict,TResult Function( dynamic error)?  internalServerError,TResult Function( dynamic error)?  notImplemented,TResult Function( dynamic error)?  serviceUnavailable,TResult Function( dynamic error)?  noInternetConnection,TResult Function( dynamic error)?  formatException,TResult Function( dynamic error)?  unableToProcess,TResult Function( dynamic error)?  defaultError,TResult Function( dynamic error)?  unexpectedError,required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case RequestCancelled() when requestCancelled != null:
 return requestCancelled(_that.error);case UnauthorisedRequest() when unauthorized != null:
@@ -220,7 +223,8 @@ return badCertificate(_that.error);case Forbidden() when forbidden != null:
 return forbidden(_that.error);case NotFound() when notFound != null:
 return notFound(_that.error);case MethodNotAllowed() when methodNotAllowed != null:
 return methodNotAllowed(_that.error);case NotAcceptable() when notAcceptable != null:
-return notAcceptable(_that.error);case ReceiveTimeout() when receiveTimeout != null:
+return notAcceptable(_that.error);case TooManyRequests() when tooManyRequests != null:
+return tooManyRequests(_that.error);case ReceiveTimeout() when receiveTimeout != null:
 return receiveTimeout(_that.error);case RequestTimeout() when requestTimeout != null:
 return requestTimeout(_that.error);case SendTimeout() when sendTimeout != null:
 return sendTimeout(_that.error);case ConnectionTimeout() when connectionTimeout != null:
@@ -251,7 +255,7 @@ return unexpectedError(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( dynamic error)  requestCancelled,required TResult Function( dynamic error)  unauthorized,required TResult Function( dynamic error)  badRequest,required TResult Function( dynamic error)  badCertificate,required TResult Function( dynamic error)  forbidden,required TResult Function( dynamic error)  notFound,required TResult Function( dynamic error)  methodNotAllowed,required TResult Function( dynamic error)  notAcceptable,required TResult Function( dynamic error)  receiveTimeout,required TResult Function( dynamic error)  requestTimeout,required TResult Function( dynamic error)  sendTimeout,required TResult Function( dynamic error)  connectionTimeout,required TResult Function( dynamic error)  conflict,required TResult Function( dynamic error)  internalServerError,required TResult Function( dynamic error)  notImplemented,required TResult Function( dynamic error)  serviceUnavailable,required TResult Function( dynamic error)  noInternetConnection,required TResult Function( dynamic error)  formatException,required TResult Function( dynamic error)  unableToProcess,required TResult Function( dynamic error)  defaultError,required TResult Function( dynamic error)  unexpectedError,}) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>({required TResult Function( dynamic error)  requestCancelled,required TResult Function( dynamic error)  unauthorized,required TResult Function( dynamic error)  badRequest,required TResult Function( dynamic error)  badCertificate,required TResult Function( dynamic error)  forbidden,required TResult Function( dynamic error)  notFound,required TResult Function( dynamic error)  methodNotAllowed,required TResult Function( dynamic error)  notAcceptable,required TResult Function( dynamic error)  tooManyRequests,required TResult Function( dynamic error)  receiveTimeout,required TResult Function( dynamic error)  requestTimeout,required TResult Function( dynamic error)  sendTimeout,required TResult Function( dynamic error)  connectionTimeout,required TResult Function( dynamic error)  conflict,required TResult Function( dynamic error)  internalServerError,required TResult Function( dynamic error)  notImplemented,required TResult Function( dynamic error)  serviceUnavailable,required TResult Function( dynamic error)  noInternetConnection,required TResult Function( dynamic error)  formatException,required TResult Function( dynamic error)  unableToProcess,required TResult Function( dynamic error)  defaultError,required TResult Function( dynamic error)  unexpectedError,}) {final _that = this;
 switch (_that) {
 case RequestCancelled():
 return requestCancelled(_that.error);case UnauthorisedRequest():
@@ -261,7 +265,8 @@ return badCertificate(_that.error);case Forbidden():
 return forbidden(_that.error);case NotFound():
 return notFound(_that.error);case MethodNotAllowed():
 return methodNotAllowed(_that.error);case NotAcceptable():
-return notAcceptable(_that.error);case ReceiveTimeout():
+return notAcceptable(_that.error);case TooManyRequests():
+return tooManyRequests(_that.error);case ReceiveTimeout():
 return receiveTimeout(_that.error);case RequestTimeout():
 return requestTimeout(_that.error);case SendTimeout():
 return sendTimeout(_that.error);case ConnectionTimeout():
@@ -291,7 +296,7 @@ return unexpectedError(_that.error);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( dynamic error)?  requestCancelled,TResult? Function( dynamic error)?  unauthorized,TResult? Function( dynamic error)?  badRequest,TResult? Function( dynamic error)?  badCertificate,TResult? Function( dynamic error)?  forbidden,TResult? Function( dynamic error)?  notFound,TResult? Function( dynamic error)?  methodNotAllowed,TResult? Function( dynamic error)?  notAcceptable,TResult? Function( dynamic error)?  receiveTimeout,TResult? Function( dynamic error)?  requestTimeout,TResult? Function( dynamic error)?  sendTimeout,TResult? Function( dynamic error)?  connectionTimeout,TResult? Function( dynamic error)?  conflict,TResult? Function( dynamic error)?  internalServerError,TResult? Function( dynamic error)?  notImplemented,TResult? Function( dynamic error)?  serviceUnavailable,TResult? Function( dynamic error)?  noInternetConnection,TResult? Function( dynamic error)?  formatException,TResult? Function( dynamic error)?  unableToProcess,TResult? Function( dynamic error)?  defaultError,TResult? Function( dynamic error)?  unexpectedError,}) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>({TResult? Function( dynamic error)?  requestCancelled,TResult? Function( dynamic error)?  unauthorized,TResult? Function( dynamic error)?  badRequest,TResult? Function( dynamic error)?  badCertificate,TResult? Function( dynamic error)?  forbidden,TResult? Function( dynamic error)?  notFound,TResult? Function( dynamic error)?  methodNotAllowed,TResult? Function( dynamic error)?  notAcceptable,TResult? Function( dynamic error)?  tooManyRequests,TResult? Function( dynamic error)?  receiveTimeout,TResult? Function( dynamic error)?  requestTimeout,TResult? Function( dynamic error)?  sendTimeout,TResult? Function( dynamic error)?  connectionTimeout,TResult? Function( dynamic error)?  conflict,TResult? Function( dynamic error)?  internalServerError,TResult? Function( dynamic error)?  notImplemented,TResult? Function( dynamic error)?  serviceUnavailable,TResult? Function( dynamic error)?  noInternetConnection,TResult? Function( dynamic error)?  formatException,TResult? Function( dynamic error)?  unableToProcess,TResult? Function( dynamic error)?  defaultError,TResult? Function( dynamic error)?  unexpectedError,}) {final _that = this;
 switch (_that) {
 case RequestCancelled() when requestCancelled != null:
 return requestCancelled(_that.error);case UnauthorisedRequest() when unauthorized != null:
@@ -301,7 +306,8 @@ return badCertificate(_that.error);case Forbidden() when forbidden != null:
 return forbidden(_that.error);case NotFound() when notFound != null:
 return notFound(_that.error);case MethodNotAllowed() when methodNotAllowed != null:
 return methodNotAllowed(_that.error);case NotAcceptable() when notAcceptable != null:
-return notAcceptable(_that.error);case ReceiveTimeout() when receiveTimeout != null:
+return notAcceptable(_that.error);case TooManyRequests() when tooManyRequests != null:
+return tooManyRequests(_that.error);case ReceiveTimeout() when receiveTimeout != null:
 return receiveTimeout(_that.error);case RequestTimeout() when requestTimeout != null:
 return requestTimeout(_that.error);case SendTimeout() when sendTimeout != null:
 return sendTimeout(_that.error);case ConnectionTimeout() when connectionTimeout != null:
@@ -842,6 +848,72 @@ class _$NotAcceptableCopyWithImpl<$Res>
 /// with the given fields replaced by the non-null parameter values.
 @override @pragma('vm:prefer-inline') $Res call({Object? error = freezed,}) {
   return _then(NotAcceptable(
+freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
+as dynamic,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class TooManyRequests implements NetworkException {
+  const TooManyRequests([this.error]);
+  
+
+@override final  dynamic error;
+
+/// Create a copy of NetworkException
+/// with the given fields replaced by the non-null parameter values.
+@override @JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$TooManyRequestsCopyWith<TooManyRequests> get copyWith => _$TooManyRequestsCopyWithImpl<TooManyRequests>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is TooManyRequests&&const DeepCollectionEquality().equals(other.error, error));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+
+@override
+String toString() {
+  return 'NetworkException.tooManyRequests(error: $error)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $TooManyRequestsCopyWith<$Res> implements $NetworkExceptionCopyWith<$Res> {
+  factory $TooManyRequestsCopyWith(TooManyRequests value, $Res Function(TooManyRequests) _then) = _$TooManyRequestsCopyWithImpl;
+@override @useResult
+$Res call({
+ dynamic error
+});
+
+
+
+
+}
+/// @nodoc
+class _$TooManyRequestsCopyWithImpl<$Res>
+    implements $TooManyRequestsCopyWith<$Res> {
+  _$TooManyRequestsCopyWithImpl(this._self, this._then);
+
+  final TooManyRequests _self;
+  final $Res Function(TooManyRequests) _then;
+
+/// Create a copy of NetworkException
+/// with the given fields replaced by the non-null parameter values.
+@override @pragma('vm:prefer-inline') $Res call({Object? error = freezed,}) {
+  return _then(TooManyRequests(
 freezed == error ? _self.error : error // ignore: cast_nullable_to_non_nullable
 as dynamic,
   ));

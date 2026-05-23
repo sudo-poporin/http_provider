@@ -33,6 +33,10 @@ abstract class NetworkException with _$NetworkException implements Exception {
   /// No aceptable.
   const factory NetworkException.notAcceptable([dynamic error]) = NotAcceptable;
 
+  /// Demasiadas peticiones (rate limit).
+  const factory NetworkException.tooManyRequests([dynamic error]) =
+      TooManyRequests;
+
   /// Tiempo de espera agotado.
   const factory NetworkException.receiveTimeout([dynamic error]) =
       ReceiveTimeout;
