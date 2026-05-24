@@ -6,7 +6,7 @@ This file provides guidance to Codex (Codex.ai/code) when working with code in t
 
 `http_provider` is a Dart package that wraps Dio HTTP client with functional error handling using fpdart's `Either` pattern. Instead of throwing exceptions, all network operations return `Either<NetworkException, T>`, enabling type-safe, exhaustive error handling via pattern matching.
 
-Current version: **1.1.0** | Dart SDK: `>=3.8.0 <4.0.0`
+Current version: **1.2.0** | Dart SDK: `>=3.8.0 <4.0.0`
 
 ## Commands
 
@@ -31,7 +31,7 @@ dart analyze
 
 ```
 lib/
-├── http_provider.dart              # Barrel file: re-exports dio, exceptions, provider, interface
+├── http_provider.dart              # Barrel file: re-exports dio, exceptions, provider, interface, interceptors
 └── src/
     ├── http_provider.dart          # HTTPProvider - concrete implementation with Dio
     ├── i_http_provider.dart        # IHTTPProvider - abstract interface for DI/mocking
@@ -39,9 +39,12 @@ lib/
     │   ├── exceptions.dart         # Barrel file
     │   ├── network_exception.dart  # Freezed sealed class with 20+ error variants
     │   └── network_exception.freezed.dart  # Generated code (do not edit)
+    ├── interceptors/
+    │   ├── interceptors.dart       # Barrel file
+    │   └── retry_interceptor.dart  # RetryInterceptor + DioRetriesExhaustedException marker
     └── mixins/
         ├── mixins.dart             # Barrel file
-        └── dio_error_handler_mixin.dart  # Maps DioException → NetworkException
+        └── dio_error_handler_mixin.dart  # Maps DioException → NetworkException (including marker)
 ```
 
 **Key design decisions:**
@@ -50,6 +53,7 @@ lib/
 - **`NetworkException`** is a freezed sealed class with variants like `unauthorized`, `noInternetConnection`, `receiveTimeout`, etc. — supports `.when()` pattern matching
 - The barrel file at `lib/http_provider.dart` re-exports `package:dio/dio.dart`, so consumers get `Response`, `Options`, etc. without a separate dio import
 - Methods `get<T>()` and `post<T>()` are generic — the response type flows through from Dio
+- **`RetryInterceptor`** (v1.2.0+) reintenta requests con backoff exponencial por status codes configurables. Estado per-request vive en `requestOptions.extra['http_provider.retryAttempt']`. Tras agotar retries, propaga `DioRetriesExhaustedException` (subclass marker de `DioException`) que el mixin mapea a `NetworkException.retriesExhausted`. Constructor de `HTTPProvider` acepta `interceptorsBuilder: (Dio dio) => [...]` para resolver la circular dep del builder pattern.
 
 ## Testing
 

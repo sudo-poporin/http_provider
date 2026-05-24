@@ -10,11 +10,15 @@ class HTTPProvider with DioErrorHandler implements IHTTPProvider {
     Duration receiveTimeout = const Duration(milliseconds: 30000),
     Map<String, dynamic> headers = const {},
     Dio? client,
+    List<Interceptor> Function(Dio dio)? interceptorsBuilder,
   }) : _dio = client ?? Dio() {
     _dio
       ..options.connectTimeout = connectionTimeout
       ..options.receiveTimeout = receiveTimeout
       ..options.headers = headers;
+    if (interceptorsBuilder != null) {
+      _dio.interceptors.addAll(interceptorsBuilder(_dio));
+    }
   }
 
   final Dio _dio;

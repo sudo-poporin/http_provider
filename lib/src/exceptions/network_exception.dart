@@ -37,6 +37,10 @@ abstract class NetworkException with _$NetworkException implements Exception {
   const factory NetworkException.tooManyRequests([dynamic error]) =
       TooManyRequests;
 
+  /// Retries del interceptor agotados (status code retriable persistente).
+  const factory NetworkException.retriesExhausted([dynamic error]) =
+      RetriesExhausted;
+
   /// Tiempo de espera agotado.
   const factory NetworkException.receiveTimeout([dynamic error]) =
       ReceiveTimeout;

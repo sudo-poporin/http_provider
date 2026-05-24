@@ -48,6 +48,22 @@ void main() {
       p.close(force: true);
     });
 
+    test('interceptorsBuilder recibe el Dio interno y registra interceptors', () {
+      Dio? capturedDio;
+      final provider = HTTPProvider(
+        interceptorsBuilder: (dio) {
+          capturedDio = dio;
+          return [
+            RetryInterceptor(dio: dio, maxRetries: 1, initialBackoffMs: 100),
+          ];
+        },
+      );
+      addTearDown(() => provider.close(force: true));
+
+      expect(capturedDio, isNotNull);
+      expect(provider, isA<HTTPProvider>());
+    });
+
     test('close delega en Dio.close', () {
       when(() => dio.close(force: any(named: 'force'))).thenReturn(null);
 
