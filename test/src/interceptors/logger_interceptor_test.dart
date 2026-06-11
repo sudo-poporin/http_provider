@@ -71,6 +71,7 @@ void main() {
         logs.single,
         matches(RegExp(r'^❌ connectionTimeout GET /users \(\d+ms\)$')),
       );
+      verify(() => handler.next(err)).called(1);
     });
   });
 
@@ -111,6 +112,15 @@ void main() {
       interceptor.onResponse(response, handler);
 
       expect(logs.single, '✅ 200 GET /users (0ms)');
+    });
+
+    test('sin status code loguea ?', () {
+      final request = RequestOptions(path: 'https://api.x.com/users');
+      final response = Response<dynamic>(requestOptions: request);
+
+      interceptor.onResponse(response, handler);
+
+      expect(logs.single, '✅ ? GET /users (0ms)');
     });
   });
 

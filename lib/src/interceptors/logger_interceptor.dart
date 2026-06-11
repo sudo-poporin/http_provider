@@ -71,7 +71,7 @@ class LoggerInterceptor extends Interceptor {
   ) {
     final request = response.requestOptions;
     options.logPrint(
-      '✅ ${response.statusCode} ${request.method} '
+      '✅ ${response.statusCode ?? '?'} ${request.method} '
       '${request.uri.path} (${_elapsedMs(request)}ms)',
     );
     if (options.logHeaders) {
