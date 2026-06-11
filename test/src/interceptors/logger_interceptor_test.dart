@@ -201,4 +201,63 @@ void main() {
       expect(logs[1], '  headers: {Authorization: Bearer secreto}');
     });
   });
+
+  group('LoggerInterceptor logBody', () {
+    late List<String> logs;
+    late LoggerInterceptor interceptor;
+
+    setUp(() {
+      logs = <String>[];
+      interceptor = LoggerInterceptor(
+        options: LoggerOptions(logPrint: logs.add, logBody: true),
+      );
+    });
+
+    test('onRequest loguea body cuando hay data', () {
+      final request = RequestOptions(
+        path: 'https://api.x.com/login',
+        method: 'POST',
+        data: {'user': 'ana'},
+      );
+
+      interceptor.onRequest(request, _MockRequestHandler());
+
+      expect(logs, hasLength(2));
+      expect(logs[1], '  body: {user: ana}');
+    });
+
+    test('onRequest sin data no loguea línea de body', () {
+      final request = RequestOptions(path: 'https://api.x.com/users');
+
+      interceptor.onRequest(request, _MockRequestHandler());
+
+      expect(logs, hasLength(1));
+    });
+
+    test('onResponse loguea body cuando hay data', () {
+      final request = RequestOptions(path: 'https://api.x.com/login');
+      final response = Response<dynamic>(
+        requestOptions: request,
+        statusCode: 200,
+        data: {'token': 'abc'},
+      );
+
+      interceptor.onResponse(response, _MockResponseHandler());
+
+      expect(logs, hasLength(2));
+      expect(logs[1], '  body: {token: abc}');
+    });
+
+    test('onResponse sin data no loguea línea de body', () {
+      final request = RequestOptions(path: 'https://api.x.com/users');
+      final response = Response<dynamic>(
+        requestOptions: request,
+        statusCode: 204,
+      );
+
+      interceptor.onResponse(response, _MockResponseHandler());
+
+      expect(logs, hasLength(1));
+    });
+  });
 }
