@@ -2,20 +2,39 @@ import 'package:fpdart/fpdart.dart';
 import 'package:http_provider/http_provider.dart';
 import 'package:http_provider/src/mixins/mixins.dart';
 
+/// Equivalente a `kDebugMode` de Flutter sin depender de Flutter:
+/// `dart.vm.product` es true en release y `dart.vm.profile` en profile.
+/// Al ser const, en release/profile el compilador elimina la rama de
+/// logging por tree-shaking.
+const bool _kIsDebugMode =
+    !bool.fromEnvironment('dart.vm.product') &&
+    !bool.fromEnvironment('dart.vm.profile');
+
 /// Clase de implementación del cliente HTTP
 class HTTPProvider with DioErrorHandler implements IHTTPProvider {
   /// Cliente HTTP de la aplicación.
+  ///
+  /// Con [enableLogger] en `true` agrega un [LoggerInterceptor] —
+  /// solo en modo debug; en release/profile es no-op. [loggerOptions]
+  /// ajusta el detalle del logging (headers, body, sink, redacción).
   HTTPProvider({
     Duration connectionTimeout = const Duration(milliseconds: 30000),
     Duration receiveTimeout = const Duration(milliseconds: 30000),
     Map<String, dynamic> headers = const {},
     Dio? client,
     List<Interceptor> Function(Dio dio)? interceptorsBuilder,
+    bool enableLogger = false,
+    LoggerOptions? loggerOptions,
   }) : _dio = client ?? Dio() {
     _dio
       ..options.connectTimeout = connectionTimeout
       ..options.receiveTimeout = receiveTimeout
       ..options.headers = headers;
+    if (enableLogger && _kIsDebugMode) {
+      _dio.interceptors.add(
+        LoggerInterceptor(options: loggerOptions ?? const LoggerOptions()),
+      );
+    }
     if (interceptorsBuilder != null) {
       _dio.interceptors.addAll(interceptorsBuilder(_dio));
     }
