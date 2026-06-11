@@ -137,4 +137,68 @@ void main() {
       verify(() => handler.next(request)).called(1);
     });
   });
+
+  group('LoggerInterceptor logHeaders', () {
+    late List<String> logs;
+
+    setUp(() {
+      logs = <String>[];
+    });
+
+    test('onRequest redacta headers sensibles (case-insensitive)', () {
+      final interceptor = LoggerInterceptor(
+        options: LoggerOptions(logPrint: logs.add, logHeaders: true),
+      );
+      final request = RequestOptions(
+        path: 'https://api.x.com/users',
+        headers: {'Authorization': 'Bearer secreto', 'Accept': 'json'},
+      );
+
+      interceptor.onRequest(request, _MockRequestHandler());
+
+      expect(logs, hasLength(2));
+      expect(logs[1], '  headers: {Authorization: ***, Accept: json}');
+    });
+
+    test('onResponse loguea headers con redacción', () {
+      final interceptor = LoggerInterceptor(
+        options: LoggerOptions(logPrint: logs.add, logHeaders: true),
+      );
+      final request = RequestOptions(path: 'https://api.x.com/users');
+      final response = Response<dynamic>(
+        requestOptions: request,
+        statusCode: 200,
+        headers: Headers.fromMap({
+          'set-cookie': ['session=abc'],
+          'content-type': ['application/json'],
+        }),
+      );
+
+      interceptor.onResponse(response, _MockResponseHandler());
+
+      expect(logs, hasLength(2));
+      expect(
+        logs[1],
+        '  headers: {set-cookie: ***, content-type: [application/json]}',
+      );
+    });
+
+    test('redactedHeaders vacío muestra todo sin redactar', () {
+      final interceptor = LoggerInterceptor(
+        options: LoggerOptions(
+          logPrint: logs.add,
+          logHeaders: true,
+          redactedHeaders: {},
+        ),
+      );
+      final request = RequestOptions(
+        path: 'https://api.x.com/users',
+        headers: {'Authorization': 'Bearer secreto'},
+      );
+
+      interceptor.onRequest(request, _MockRequestHandler());
+
+      expect(logs[1], '  headers: {Authorization: Bearer secreto}');
+    });
+  });
 }

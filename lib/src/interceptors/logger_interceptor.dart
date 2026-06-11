@@ -56,6 +56,12 @@ class LoggerInterceptor extends Interceptor {
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
     options.extra[_startKey] = DateTime.now();
     this.options.logPrint('🚀 ${options.method} ${options.uri}');
+    if (this.options.logHeaders) {
+      this.options.logPrint('  headers: ${_redact(options.headers)}');
+    }
+    if (this.options.logBody && options.data != null) {
+      this.options.logPrint('  body: ${options.data}');
+    }
     handler.next(options);
   }
 
@@ -69,6 +75,12 @@ class LoggerInterceptor extends Interceptor {
       '✅ ${response.statusCode} ${request.method} '
       '${request.uri.path} (${_elapsedMs(request)}ms)',
     );
+    if (options.logHeaders) {
+      options.logPrint('  headers: ${_redact(response.headers.map)}');
+    }
+    if (options.logBody && response.data != null) {
+      options.logPrint('  body: ${response.data}');
+    }
     handler.next(response);
   }
 
@@ -89,5 +101,14 @@ class LoggerInterceptor extends Interceptor {
       return 0;
     }
     return DateTime.now().difference(start).inMilliseconds;
+  }
+
+  Map<String, Object?> _redact(Map<String, Object?> headers) {
+    return {
+      for (final entry in headers.entries)
+        entry.key: options.redactedHeaders.contains(entry.key.toLowerCase())
+            ? '***'
+            : entry.value,
+    };
   }
 }
