@@ -58,4 +58,25 @@ class LoggerInterceptor extends Interceptor {
     this.options.logPrint('🚀 ${options.method} ${options.uri}');
     handler.next(options);
   }
+
+  @override
+  void onResponse(
+    Response<dynamic> response,
+    ResponseInterceptorHandler handler,
+  ) {
+    final request = response.requestOptions;
+    options.logPrint(
+      '✅ ${response.statusCode} ${request.method} '
+      '${request.uri.path} (${_elapsedMs(request)}ms)',
+    );
+    handler.next(response);
+  }
+
+  int _elapsedMs(RequestOptions request) {
+    final start = request.extra[_startKey];
+    if (start is! DateTime) {
+      return 0;
+    }
+    return DateTime.now().difference(start).inMilliseconds;
+  }
 }

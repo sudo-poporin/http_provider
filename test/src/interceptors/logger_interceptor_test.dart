@@ -24,6 +24,46 @@ void main() {
     });
   });
 
+  group('LoggerInterceptor.onResponse', () {
+    late List<String> logs;
+    late ResponseInterceptorHandler handler;
+    late LoggerInterceptor interceptor;
+
+    setUp(() {
+      logs = <String>[];
+      handler = _MockResponseHandler();
+      interceptor = LoggerInterceptor(
+        options: LoggerOptions(logPrint: logs.add),
+      );
+    });
+
+    test('loguea status, método, path y duración; llama handler.next', () {
+      final request = RequestOptions(path: 'https://api.x.com/users')
+        ..extra['http_provider.loggerStart'] = DateTime.now();
+      final response = Response<dynamic>(
+        requestOptions: request,
+        statusCode: 200,
+      );
+
+      interceptor.onResponse(response, handler);
+
+      expect(logs.single, matches(RegExp(r'^✅ 200 GET /users \(\d+ms\)$')));
+      verify(() => handler.next(response)).called(1);
+    });
+
+    test('sin timestamp previo loguea 0ms', () {
+      final request = RequestOptions(path: 'https://api.x.com/users');
+      final response = Response<dynamic>(
+        requestOptions: request,
+        statusCode: 200,
+      );
+
+      interceptor.onResponse(response, handler);
+
+      expect(logs.single, '✅ 200 GET /users (0ms)');
+    });
+  });
+
   group('LoggerInterceptor.onRequest', () {
     late List<String> logs;
     late RequestInterceptorHandler handler;
