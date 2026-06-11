@@ -49,4 +49,13 @@ class LoggerInterceptor extends Interceptor {
 
   /// Configuración del logger.
   final LoggerOptions options;
+
+  static const _startKey = 'http_provider.loggerStart';
+
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    options.extra[_startKey] = DateTime.now();
+    this.options.logPrint('🚀 ${options.method} ${options.uri}');
+    handler.next(options);
+  }
 }
