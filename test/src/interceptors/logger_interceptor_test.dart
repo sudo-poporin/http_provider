@@ -16,6 +16,8 @@ void main() {
 
       expect(options.logHeaders, isFalse);
       expect(options.logBody, isFalse);
+      // Verifica que el default del sink sea la función `print` built-in.
+      // ignore: avoid_print
       expect(options.logPrint, print);
       expect(
         options.redactedHeaders,

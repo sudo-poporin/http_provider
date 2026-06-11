@@ -16,7 +16,6 @@ class LoggerOptions {
   const LoggerOptions({
     this.logHeaders = false,
     this.logBody = false,
-    // ignore: avoid_print
     this.logPrint = print,
     this.redactedHeaders = const {'authorization', 'cookie', 'set-cookie'},
   });
