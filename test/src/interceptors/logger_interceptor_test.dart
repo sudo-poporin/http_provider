@@ -24,6 +24,54 @@ void main() {
     });
   });
 
+  group('LoggerInterceptor.onError', () {
+    late List<String> logs;
+    late ErrorInterceptorHandler handler;
+    late LoggerInterceptor interceptor;
+
+    setUp(() {
+      logs = <String>[];
+      handler = _MockErrorHandler();
+      interceptor = LoggerInterceptor(
+        options: LoggerOptions(logPrint: logs.add),
+      );
+    });
+
+    test('con response loguea status code; llama handler.next', () {
+      final request = RequestOptions(path: 'https://api.x.com/users/99')
+        ..extra['http_provider.loggerStart'] = DateTime.now();
+      final err = DioException(
+        requestOptions: request,
+        response: Response<dynamic>(requestOptions: request, statusCode: 404),
+        type: DioExceptionType.badResponse,
+      );
+
+      interceptor.onError(err, handler);
+
+      expect(
+        logs.single,
+        matches(RegExp(r'^❌ 404 GET /users/99 \(\d+ms\)$')),
+      );
+      verify(() => handler.next(err)).called(1);
+    });
+
+    test('sin response loguea el DioExceptionType', () {
+      final request = RequestOptions(path: 'https://api.x.com/users')
+        ..extra['http_provider.loggerStart'] = DateTime.now();
+      final err = DioException(
+        requestOptions: request,
+        type: DioExceptionType.connectionTimeout,
+      );
+
+      interceptor.onError(err, handler);
+
+      expect(
+        logs.single,
+        matches(RegExp(r'^❌ connectionTimeout GET /users \(\d+ms\)$')),
+      );
+    });
+  });
+
   group('LoggerInterceptor.onResponse', () {
     late List<String> logs;
     late ResponseInterceptorHandler handler;

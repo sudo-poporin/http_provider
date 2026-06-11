@@ -72,6 +72,17 @@ class LoggerInterceptor extends Interceptor {
     handler.next(response);
   }
 
+  @override
+  void onError(DioException err, ErrorInterceptorHandler handler) {
+    final request = err.requestOptions;
+    final status = err.response?.statusCode?.toString() ?? err.type.name;
+    options.logPrint(
+      '❌ $status ${request.method} '
+      '${request.uri.path} (${_elapsedMs(request)}ms)',
+    );
+    handler.next(err);
+  }
+
   int _elapsedMs(RequestOptions request) {
     final start = request.extra[_startKey];
     if (start is! DateTime) {
