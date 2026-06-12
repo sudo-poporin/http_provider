@@ -46,7 +46,7 @@ class LoggerOptions {
 /// conditions con requests concurrentes.
 class LoggerInterceptor extends Interceptor {
   /// Crea el interceptor con [options].
-  LoggerInterceptor({this.options = const LoggerOptions()});
+  const LoggerInterceptor({this.options = const LoggerOptions()});
 
   /// Configuración del logger.
   final LoggerOptions options;

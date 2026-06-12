@@ -39,6 +39,7 @@ dependencies:
 | `receiveTimeout` | `Duration` | 30 segundos | Tiempo máximo para recibir respuesta |
 | `headers` | `Map<String, dynamic>` | `{}` | Headers por defecto para todas las peticiones |
 | `client` | `Dio?` | `null` | Cliente Dio inyectable (útil para testing) |
+| `interceptorsBuilder` | `List<Interceptor> Function(Dio)?` | `null` | Builder para agregar interceptors custom al Dio interno |
 | `enableLogger` | `bool` | `false` | Activa el logging de requests (solo en modo debug; no-op en release/profile) |
 | `loggerOptions` | `LoggerOptions?` | `null` | Configuración del logger (headers, body, sink, redacción) |
 
