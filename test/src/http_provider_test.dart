@@ -180,6 +180,50 @@ void main() {
     });
   });
 
+  group('HTTPProvider enableLogger', () {
+    test('enableLogger agrega LoggerInterceptor (tests corren en debug)', () {
+      final dio = Dio();
+
+      HTTPProvider(client: dio, enableLogger: true);
+
+      expect(dio.interceptors.whereType<LoggerInterceptor>(), hasLength(1));
+    });
+
+    test('default no agrega LoggerInterceptor', () {
+      final dio = Dio();
+
+      HTTPProvider(client: dio);
+
+      expect(dio.interceptors.whereType<LoggerInterceptor>(), isEmpty);
+    });
+
+    test('loggerOptions se pasa al interceptor', () {
+      final dio = Dio();
+      const options = LoggerOptions(logHeaders: true);
+
+      HTTPProvider(client: dio, enableLogger: true, loggerOptions: options);
+
+      final logger = dio.interceptors.whereType<LoggerInterceptor>().single;
+      expect(logger.options, same(options));
+    });
+
+    test('logger queda antes de los interceptors del builder', () {
+      final dio = Dio();
+
+      HTTPProvider(
+        client: dio,
+        enableLogger: true,
+        interceptorsBuilder: (dio) => [RetryInterceptor(dio: dio)],
+      );
+
+      final loggerIndex =
+          dio.interceptors.indexWhere((i) => i is LoggerInterceptor);
+      final retryIndex =
+          dio.interceptors.indexWhere((i) => i is RetryInterceptor);
+      expect(loggerIndex, lessThan(retryIndex));
+    });
+  });
+
   group('DioErrorHandler.manageNetworkException', () {
     final handler = _Handler();
 
