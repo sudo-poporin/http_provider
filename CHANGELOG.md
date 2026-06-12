@@ -1,5 +1,18 @@
 # Changelog
 
+## 1.3.0
+
+- feat: agrega `LoggerInterceptor` + `LoggerOptions` para loguear
+  requests, responses y errores (método, URL, status, duración), con
+  headers y body opcionales. Headers sensibles (`authorization`,
+  `cookie`, `set-cookie`) se redactan a `***`; lista configurable.
+- feat: `HTTPProvider` acepta `enableLogger` y `loggerOptions` en el
+  constructor. Disponible solo en modo debug: gate compile-time vía
+  `bool.fromEnvironment('dart.vm.product')` — en release/profile el
+  flag es no-op y el código de logging se elimina por tree-shaking.
+- docs: la instalación en el README ahora apunta al tag `v1.3.0` en
+  lugar del branch `main`.
+
 ## 1.2.0
 
 - feat: agrega `RetryInterceptor` con backoff exponencial configurable. Reintenta
