@@ -15,6 +15,7 @@ Paquete para obtener información de forma remota mediante peticiones HTTP.
 - 21+ tipos de excepciones específicas para diferentes escenarios
 - Interface `IHTTPProvider` para testing y mocking
 - Exporta Dio directamente para configuración avanzada
+- Logger de requests/responses opcional, solo en modo debug, con redacción de headers sensibles
 
 ## Instalación 💻
 
@@ -25,7 +26,7 @@ dependencies:
   http_provider:
     git:
       url: https://github.com/sudo-poporin/http_provider
-      ref: main
+      ref: v1.3.0
 ```
 
 ## Configuración ⚙️
@@ -38,6 +39,8 @@ dependencies:
 | `receiveTimeout` | `Duration` | 30 segundos | Tiempo máximo para recibir respuesta |
 | `headers` | `Map<String, dynamic>` | `{}` | Headers por defecto para todas las peticiones |
 | `client` | `Dio?` | `null` | Cliente Dio inyectable (útil para testing) |
+| `enableLogger` | `bool` | `false` | Activa el logging de requests (solo en modo debug; no-op en release/profile) |
+| `loggerOptions` | `LoggerOptions?` | `null` | Configuración del logger (headers, body, sink, redacción) |
 
 ### Ejemplo de configuración personalizada
 
@@ -51,6 +54,47 @@ final httpProvider = HTTPProvider(
   },
 );
 ```
+
+### Logging de requests (solo debug)
+
+Con `enableLogger: true`, el provider loguea requests, responses y
+errores en consola. Solo funciona en modo debug: en builds release o
+profile el flag es no-op y el código de logging se elimina en compilación.
+
+```dart
+// Modo compacto (default)
+final httpProvider = HTTPProvider(enableLogger: true);
+// 🚀 GET https://api.x.com/users?page=1
+// ✅ 200 GET /users (243ms)
+// ❌ 404 GET /users/99 (120ms)
+
+// Con headers y body
+final verboseProvider = HTTPProvider(
+  enableLogger: true,
+  loggerOptions: const LoggerOptions(
+    logHeaders: true,
+    logBody: true,
+  ),
+);
+```
+
+Los headers sensibles (`authorization`, `cookie`, `set-cookie`) se
+redactan a `***`. Para verlos durante una sesión de debugging, ajustar
+`redactedHeaders`:
+
+```dart
+LoggerOptions(logHeaders: true, redactedHeaders: {})
+```
+
+**Advertencias de seguridad:**
+
+- No commitear `redactedHeaders: {}` — los logs locales mostrarían
+  tokens en texto plano.
+- `logBody` no aplica redacción: no activarlo en requests con
+  credenciales o datos personales si los logs se comparten.
+- Si se inyecta un `logPrint` que envía a un destino remoto
+  (Crashlytics, etc.), datos de debug pueden salir del dispositivo.
+- Los query params de las URLs no se redactan.
 
 ## Uso 📖
 
