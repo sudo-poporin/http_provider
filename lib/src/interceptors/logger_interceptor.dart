@@ -4,10 +4,11 @@ import 'package:dio/dio.dart';
 class LoggerOptions {
   /// Crea las opciones del logger.
   ///
-  /// - [logHeaders]: loguea headers de request/response, aplicando
-  ///   redacción según [redactedHeaders].
-  /// - [logBody]: loguea body de request/response. Sin redacción:
-  ///   no activar en requests con credenciales o PII.
+  /// - [logHeaders]: loguea headers de request, response y errores con
+  ///   response, aplicando redacción según [redactedHeaders].
+  /// - [logBody]: loguea body de request, response y errores con
+  ///   response. Sin redacción: no activar en requests con credenciales
+  ///   o PII.
   /// - [logPrint]: sink de salida. Default: [print]; inyectable para
   ///   tests o para redirigir a otro logger.
   /// - [redactedHeaders]: headers cuyo valor se reemplaza por `***`
@@ -20,10 +21,12 @@ class LoggerOptions {
     this.redactedHeaders = const {'authorization', 'cookie', 'set-cookie'},
   });
 
-  /// Loguea headers de request/response (con redacción).
+  /// Loguea headers de request, response y errores con response
+  /// (con redacción).
   final bool logHeaders;
 
-  /// Loguea body de request/response (sin redacción).
+  /// Loguea body de request, response y errores con response
+  /// (sin redacción).
   final bool logBody;
 
   /// Sink de salida del logger.
@@ -88,11 +91,20 @@ class LoggerInterceptor extends Interceptor {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     final request = err.requestOptions;
-    final status = err.response?.statusCode?.toString() ?? err.type.name;
+    final response = err.response;
+    final status = response?.statusCode?.toString() ?? err.type.name;
     options.logPrint(
       '❌ $status ${request.method} '
       '${request.uri.path} (${_elapsedMs(request)}ms)',
     );
+    if (response != null) {
+      if (options.logHeaders) {
+        options.logPrint('  headers: ${_redact(response.headers.map)}');
+      }
+      if (options.logBody && response.data != null) {
+        options.logPrint('  body: ${response.data}');
+      }
+    }
     handler.next(err);
   }
 
@@ -105,9 +117,14 @@ class LoggerInterceptor extends Interceptor {
   }
 
   Map<String, Object?> _redact(Map<String, Object?> headers) {
+    // Normaliza el set del consumidor para que la comparación sea realmente
+    // case-insensitive aunque pase claves con mayúsculas.
+    final redacted = options.redactedHeaders
+        .map((h) => h.toLowerCase())
+        .toSet();
     return {
       for (final entry in headers.entries)
-        entry.key: options.redactedHeaders.contains(entry.key.toLowerCase())
+        entry.key: redacted.contains(entry.key.toLowerCase())
             ? '***'
             : entry.value,
     };

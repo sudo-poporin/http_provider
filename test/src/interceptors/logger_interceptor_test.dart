@@ -4,8 +4,7 @@ import 'package:test/test.dart';
 
 class _MockRequestHandler extends Mock implements RequestInterceptorHandler {}
 
-class _MockResponseHandler extends Mock
-    implements ResponseInterceptorHandler {}
+class _MockResponseHandler extends Mock implements ResponseInterceptorHandler {}
 
 class _MockErrorHandler extends Mock implements ErrorInterceptorHandler {}
 
@@ -195,6 +194,66 @@ void main() {
       );
     });
 
+    test('redactedHeaders custom con mayúsculas también redacta', () {
+      final interceptor = LoggerInterceptor(
+        options: LoggerOptions(
+          logPrint: logs.add,
+          logHeaders: true,
+          redactedHeaders: {'Authorization', 'X-Api-Key'},
+        ),
+      );
+      final request = RequestOptions(
+        path: 'https://api.x.com/users',
+        headers: {'authorization': 'Bearer secreto', 'x-api-key': 'k123'},
+      );
+
+      interceptor.onRequest(request, _MockRequestHandler());
+
+      expect(logs[1], '  headers: {authorization: ***, x-api-key: ***}');
+    });
+
+    test('onError con response loguea headers con redacción', () {
+      final interceptor = LoggerInterceptor(
+        options: LoggerOptions(logPrint: logs.add, logHeaders: true),
+      );
+      final request = RequestOptions(path: 'https://api.x.com/users');
+      final err = DioException(
+        requestOptions: request,
+        response: Response<dynamic>(
+          requestOptions: request,
+          statusCode: 401,
+          headers: Headers.fromMap({
+            'set-cookie': ['session=abc'],
+            'content-type': ['application/json'],
+          }),
+        ),
+        type: DioExceptionType.badResponse,
+      );
+
+      interceptor.onError(err, _MockErrorHandler());
+
+      expect(logs, hasLength(2));
+      expect(
+        logs[1],
+        '  headers: {set-cookie: ***, content-type: [application/json]}',
+      );
+    });
+
+    test('onError sin response no agrega línea de headers', () {
+      final interceptor = LoggerInterceptor(
+        options: LoggerOptions(logPrint: logs.add, logHeaders: true),
+      );
+      final request = RequestOptions(path: 'https://api.x.com/users');
+      final err = DioException(
+        requestOptions: request,
+        type: DioExceptionType.connectionTimeout,
+      );
+
+      interceptor.onError(err, _MockErrorHandler());
+
+      expect(logs, hasLength(1));
+    });
+
     test('redactedHeaders vacío muestra todo sin redactar', () {
       final interceptor = LoggerInterceptor(
         options: LoggerOptions(
@@ -268,6 +327,37 @@ void main() {
       );
 
       interceptor.onResponse(response, _MockResponseHandler());
+
+      expect(logs, hasLength(1));
+    });
+
+    test('onError con response loguea body cuando hay data', () {
+      final request = RequestOptions(path: 'https://api.x.com/login');
+      final err = DioException(
+        requestOptions: request,
+        response: Response<dynamic>(
+          requestOptions: request,
+          statusCode: 422,
+          data: {'error': 'invalid_credentials'},
+        ),
+        type: DioExceptionType.badResponse,
+      );
+
+      interceptor.onError(err, _MockErrorHandler());
+
+      expect(logs, hasLength(2));
+      expect(logs[1], '  body: {error: invalid_credentials}');
+    });
+
+    test('onError con response sin data no loguea línea de body', () {
+      final request = RequestOptions(path: 'https://api.x.com/users');
+      final err = DioException(
+        requestOptions: request,
+        response: Response<dynamic>(requestOptions: request, statusCode: 500),
+        type: DioExceptionType.badResponse,
+      );
+
+      interceptor.onError(err, _MockErrorHandler());
 
       expect(logs, hasLength(1));
     });
