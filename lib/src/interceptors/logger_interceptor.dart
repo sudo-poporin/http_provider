@@ -35,8 +35,10 @@ class LoggerOptions {
 
 /// Interceptor de Dio que loguea requests, responses y errores.
 ///
-/// Pensado solo para debugging: `HTTPProvider` lo agrega únicamente en
-/// modo debug (nunca en release/profile). Nunca altera el flujo: siempre
+/// Pensado solo para debugging. La vía de uso prevista es
+/// `HTTPProvider(enableLogger: true)`: el gate que lo limita a modo debug
+/// vive en `HTTPProvider`, no acá — quien lo agregue manualmente a un Dio
+/// propio queda fuera de esa protección. Nunca altera el flujo: siempre
 /// llama `handler.next(...)`.
 ///
 /// Duración per-request vía
