@@ -26,7 +26,7 @@ dependencies:
   http_provider:
     git:
       url: https://github.com/sudo-poporin/http_provider
-      ref: v1.3.0
+      ref: v1.3.1
 ```
 
 ## Configuración ⚙️

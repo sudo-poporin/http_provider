@@ -34,9 +34,13 @@ coverage/
 # Claude related
 .claude/
 CLAUDE.md
+AGENTS.md
 
 # Docs (specs, plans, design notes, generated docs)
 docs/
 
 # Graphify related
 graphify-out/
+
+# CodeGraph related
+.codegraph/

@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.3.1
+
+- chore: bump `very_good_analysis` a `^10.3.0`.
+- chore: agrega `AGENTS.md` y `.codegraph/` al `.gitignore`.
+- docs: la instalación en el README ahora apunta al tag `v1.3.1`.
+
 ## 1.3.0
 
 - feat: agrega `LoggerInterceptor` + `LoggerOptions` para loguear
