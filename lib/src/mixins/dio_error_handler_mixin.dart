@@ -30,6 +30,8 @@ mixin DioErrorHandler {
           return NetworkException.connectionTimeout(message);
         case DioExceptionType.receiveTimeout:
           return NetworkException.receiveTimeout(message);
+        case DioExceptionType.transformTimeout:
+          return NetworkException.transformTimeout(message);
         case DioExceptionType.badResponse:
           return _mapStatusCode(error.response?.statusCode, message);
         case DioExceptionType.connectionError:
