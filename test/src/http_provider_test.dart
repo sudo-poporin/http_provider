@@ -268,6 +268,13 @@ void main() {
       );
     });
 
+    test('mapea DioExceptionType.transformTimeout', () {
+      expect(
+        run(dioException(type: DioExceptionType.transformTimeout)),
+        isA<TransformTimeout>(),
+      );
+    });
+
     test('mapea DioExceptionType.connectionError', () {
       expect(
         run(dioException(type: DioExceptionType.connectionError)),

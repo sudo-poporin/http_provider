@@ -26,7 +26,7 @@ dependencies:
   http_provider:
     git:
       url: https://github.com/sudo-poporin/http_provider
-      ref: v1.3.1
+      ref: v1.4.0
 ```
 
 ## Configuración ⚙️
@@ -230,6 +230,7 @@ tipos:
 | `receiveTimeout` | Tiempo de recepción excedido |
 | `sendTimeout` | Tiempo de envío excedido |
 | `requestTimeout` | Tiempo de petición excedido |
+| `transformTimeout` | Tiempo de transformación/decode de la respuesta excedido |
 
 ### Errores de Red y Otros
 

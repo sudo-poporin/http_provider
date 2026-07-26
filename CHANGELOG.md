@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.4.0
+
+- feat: agrega `NetworkException.transformTimeout` para el nuevo
+  `DioExceptionType.transformTimeout` de dio 5.11 (timeout al
+  transformar/decodificar la respuesta), diferenciado de `receiveTimeout`.
+- chore: bump `dio` a `^5.11.0`.
+- docs: la instalación en el README ahora apunta al tag `v1.4.0`.
+
 ## 1.3.1
 
 - chore: bump `very_good_analysis` a `^10.3.0`.

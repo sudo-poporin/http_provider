@@ -45,6 +45,10 @@ abstract class NetworkException with _$NetworkException implements Exception {
   const factory NetworkException.receiveTimeout([dynamic error]) =
       ReceiveTimeout;
 
+  /// Tiempo de transformación de la respuesta agotado (decode/JSON).
+  const factory NetworkException.transformTimeout([dynamic error]) =
+      TransformTimeout;
+
   /// Tiempo de petición agotado.
   const factory NetworkException.requestTimeout([dynamic error]) =
       RequestTimeout;
