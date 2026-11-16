@@ -1,5 +1,25 @@
 # Changelog
 
+## [2.0.0] - 2026-11-15
+
+### Modificado
+
+- **Cambio que rompe:** el SDK mínimo de Dart pasa a `^3.14.0` (antes `>=3.8.0 <4.0.0`). La API
+  pública no cambia.
+  - Migración: subir el proyecto que lo consume a Dart 3.14 o posterior (Flutter 3.50 o
+    posterior) y apuntar el `ref:` a `v2.0.0`. No hace falta tocar código.
+- `dio` sube a `^5.11.1`.
+
+### Interno
+
+- `build_runner` sube a `^2.17.1`, `freezed` a `^4.0.3`, `test` a `^1.33.0` y
+  `very_good_analysis` a `^11.0.0`. `NetworkException` se regenera con freezed 4, sin cambios en
+  lo que genera hacia afuera.
+- Lints nuevos de `very_good_analysis` 11 corregidos con `dart fix`: constructores con la
+  sintaxis de Dart 3.14 (`new(...)`, factories sin el nombre del tipo) y cuerpos de clase vacíos
+  como `;`. Se saca `unnecessary_await_in_return`, deprecada, de `analysis_options.yaml`.
+- `dart format` sobre todo el paquete.
+
 ## 1.4.0
 
 - feat: agrega `NetworkException.transformTimeout` para el nuevo

@@ -19,6 +19,8 @@ Paquete para obtener información de forma remota mediante peticiones HTTP.
 
 ## Instalación 💻
 
+Requiere Dart 3.14 o superior (`sdk: ^3.14.0`).
+
 Instalar a través del archivo `pubspec.yaml` añadiendo la dependencia:
 
 ```yaml
@@ -26,7 +28,7 @@ dependencies:
   http_provider:
     git:
       url: https://github.com/sudo-poporin/http_provider
-      ref: v1.4.0
+      ref: v2.0.0
 ```
 
 ## Configuración ⚙️

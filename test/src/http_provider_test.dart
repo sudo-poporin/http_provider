@@ -6,11 +6,11 @@ import 'package:http_provider/src/mixins/mixins.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class _MockDio extends Mock implements Dio {}
+class _MockDio extends Mock implements Dio;
 
-class _FakeOptions extends Fake implements Options {}
+class _FakeOptions extends Fake implements Options;
 
-class _Handler with DioErrorHandler {}
+class _Handler with DioErrorHandler;
 
 void main() {
   setUpAll(() {
@@ -48,21 +48,24 @@ void main() {
       p.close(force: true);
     });
 
-    test('interceptorsBuilder recibe el Dio interno y registra interceptors', () {
-      Dio? capturedDio;
-      final provider = HTTPProvider(
-        interceptorsBuilder: (dio) {
-          capturedDio = dio;
-          return [
-            RetryInterceptor(dio: dio, maxRetries: 1, initialBackoffMs: 100),
-          ];
-        },
-      );
-      addTearDown(() => provider.close(force: true));
+    test(
+      'interceptorsBuilder recibe el Dio interno y registra interceptors',
+      () {
+        Dio? capturedDio;
+        final provider = HTTPProvider(
+          interceptorsBuilder: (dio) {
+            capturedDio = dio;
+            return [
+              RetryInterceptor(dio: dio, maxRetries: 1, initialBackoffMs: 100),
+            ];
+          },
+        );
+        addTearDown(() => provider.close(force: true));
 
-      expect(capturedDio, isNotNull);
-      expect(provider, isA<HTTPProvider>());
-    });
+        expect(capturedDio, isNotNull);
+        expect(provider, isA<HTTPProvider>());
+      },
+    );
 
     test('close delega en Dio.close', () {
       when(() => dio.close(force: any(named: 'force'))).thenReturn(null);
@@ -216,10 +219,12 @@ void main() {
         interceptorsBuilder: (dio) => [RetryInterceptor(dio: dio)],
       );
 
-      final loggerIndex =
-          dio.interceptors.indexWhere((i) => i is LoggerInterceptor);
-      final retryIndex =
-          dio.interceptors.indexWhere((i) => i is RetryInterceptor);
+      final loggerIndex = dio.interceptors.indexWhere(
+        (i) => i is LoggerInterceptor,
+      );
+      final retryIndex = dio.interceptors.indexWhere(
+        (i) => i is RetryInterceptor,
+      );
       expect(loggerIndex, lessThan(retryIndex));
     });
   });
@@ -340,10 +345,7 @@ void main() {
     });
 
     test('SocketException mapea a noInternetConnection', () {
-      expect(
-        run(const SocketException('boom')),
-        isA<NoInternetConnection>(),
-      );
+      expect(run(const SocketException('boom')), isA<NoInternetConnection>());
     });
 
     test('FormatException mapea a formatException', () {

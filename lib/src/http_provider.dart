@@ -17,7 +17,7 @@ class HTTPProvider with DioErrorHandler implements IHTTPProvider {
   /// Con [enableLogger] en `true` agrega un [LoggerInterceptor] —
   /// solo en modo debug; en release/profile es no-op. [loggerOptions]
   /// ajusta el detalle del logging (headers, body, sink, redacción).
-  HTTPProvider({
+  new({
     Duration connectionTimeout = const Duration(milliseconds: 30000),
     Duration receiveTimeout = const Duration(milliseconds: 30000),
     Map<String, dynamic> headers = const {},

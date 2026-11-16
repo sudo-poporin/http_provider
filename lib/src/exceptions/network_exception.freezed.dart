@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // coverage:ignore-file
-// ignore_for_file: type=lint
+// ignore_for_file: type=lint, type=warning, deprecated_member_use, deprecated_member_use_from_same_package
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
 part of 'network_exception.dart';
@@ -9,6 +9,7 @@ part of 'network_exception.dart';
 // FreezedGenerator
 // **************************************************************************
 
+// GENERATED CODE - DO NOT MODIFY BY HAND
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
@@ -25,16 +26,21 @@ $NetworkExceptionCopyWith<NetworkException> get copyWith => _$NetworkExceptionCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NetworkException&&const DeepCollectionEquality().equals(other.error, error));
+  final _this = this as NetworkException;
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is NetworkException&&const DeepCollectionEquality().equals(other.error, _this.error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+  final _this = this as NetworkException;
+  return Object.hash(runtimeType,const DeepCollectionEquality().hash(_this.error));
+}
 
 @override
 String toString() {
-  return 'NetworkException(error: $error)';
+  final _this = this as NetworkException;
+  return 'NetworkException(error: ${_this.error})';
 }
 
 
@@ -359,16 +365,18 @@ $RequestCancelledCopyWith<RequestCancelled> get copyWith => _$RequestCancelledCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RequestCancelled&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RequestCancelled&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.requestCancelled(error: $error)';
+    return 'NetworkException.requestCancelled(error: $error)';
 }
 
 
@@ -425,16 +433,18 @@ $UnauthorisedRequestCopyWith<UnauthorisedRequest> get copyWith => _$Unauthorised
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UnauthorisedRequest&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is UnauthorisedRequest&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.unauthorized(error: $error)';
+    return 'NetworkException.unauthorized(error: $error)';
 }
 
 
@@ -491,16 +501,18 @@ $BadRequestCopyWith<BadRequest> get copyWith => _$BadRequestCopyWithImpl<BadRequ
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BadRequest&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is BadRequest&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.badRequest(error: $error)';
+    return 'NetworkException.badRequest(error: $error)';
 }
 
 
@@ -557,16 +569,18 @@ $BadCertificateCopyWith<BadCertificate> get copyWith => _$BadCertificateCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BadCertificate&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is BadCertificate&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.badCertificate(error: $error)';
+    return 'NetworkException.badCertificate(error: $error)';
 }
 
 
@@ -623,16 +637,18 @@ $ForbiddenCopyWith<Forbidden> get copyWith => _$ForbiddenCopyWithImpl<Forbidden>
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Forbidden&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is Forbidden&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.forbidden(error: $error)';
+    return 'NetworkException.forbidden(error: $error)';
 }
 
 
@@ -689,16 +705,18 @@ $NotFoundCopyWith<NotFound> get copyWith => _$NotFoundCopyWithImpl<NotFound>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotFound&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is NotFound&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.notFound(error: $error)';
+    return 'NetworkException.notFound(error: $error)';
 }
 
 
@@ -755,16 +773,18 @@ $MethodNotAllowedCopyWith<MethodNotAllowed> get copyWith => _$MethodNotAllowedCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is MethodNotAllowed&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is MethodNotAllowed&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.methodNotAllowed(error: $error)';
+    return 'NetworkException.methodNotAllowed(error: $error)';
 }
 
 
@@ -821,16 +841,18 @@ $NotAcceptableCopyWith<NotAcceptable> get copyWith => _$NotAcceptableCopyWithImp
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotAcceptable&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is NotAcceptable&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.notAcceptable(error: $error)';
+    return 'NetworkException.notAcceptable(error: $error)';
 }
 
 
@@ -887,16 +909,18 @@ $TooManyRequestsCopyWith<TooManyRequests> get copyWith => _$TooManyRequestsCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TooManyRequests&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TooManyRequests&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.tooManyRequests(error: $error)';
+    return 'NetworkException.tooManyRequests(error: $error)';
 }
 
 
@@ -953,16 +977,18 @@ $RetriesExhaustedCopyWith<RetriesExhausted> get copyWith => _$RetriesExhaustedCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RetriesExhausted&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RetriesExhausted&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.retriesExhausted(error: $error)';
+    return 'NetworkException.retriesExhausted(error: $error)';
 }
 
 
@@ -1019,16 +1045,18 @@ $ReceiveTimeoutCopyWith<ReceiveTimeout> get copyWith => _$ReceiveTimeoutCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ReceiveTimeout&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ReceiveTimeout&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.receiveTimeout(error: $error)';
+    return 'NetworkException.receiveTimeout(error: $error)';
 }
 
 
@@ -1085,16 +1113,18 @@ $TransformTimeoutCopyWith<TransformTimeout> get copyWith => _$TransformTimeoutCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is TransformTimeout&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is TransformTimeout&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.transformTimeout(error: $error)';
+    return 'NetworkException.transformTimeout(error: $error)';
 }
 
 
@@ -1151,16 +1181,18 @@ $RequestTimeoutCopyWith<RequestTimeout> get copyWith => _$RequestTimeoutCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is RequestTimeout&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is RequestTimeout&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.requestTimeout(error: $error)';
+    return 'NetworkException.requestTimeout(error: $error)';
 }
 
 
@@ -1217,16 +1249,18 @@ $SendTimeoutCopyWith<SendTimeout> get copyWith => _$SendTimeoutCopyWithImpl<Send
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SendTimeout&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is SendTimeout&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.sendTimeout(error: $error)';
+    return 'NetworkException.sendTimeout(error: $error)';
 }
 
 
@@ -1283,16 +1317,18 @@ $ConnectionTimeoutCopyWith<ConnectionTimeout> get copyWith => _$ConnectionTimeou
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ConnectionTimeout&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ConnectionTimeout&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.connectionTimeout(error: $error)';
+    return 'NetworkException.connectionTimeout(error: $error)';
 }
 
 
@@ -1349,16 +1385,18 @@ $ConflictCopyWith<Conflict> get copyWith => _$ConflictCopyWithImpl<Conflict>(thi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Conflict&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is Conflict&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.conflict(error: $error)';
+    return 'NetworkException.conflict(error: $error)';
 }
 
 
@@ -1415,16 +1453,18 @@ $InternalServerErrorCopyWith<InternalServerError> get copyWith => _$InternalServ
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is InternalServerError&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is InternalServerError&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.internalServerError(error: $error)';
+    return 'NetworkException.internalServerError(error: $error)';
 }
 
 
@@ -1481,16 +1521,18 @@ $NotImplementedCopyWith<NotImplemented> get copyWith => _$NotImplementedCopyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NotImplemented&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is NotImplemented&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.notImplemented(error: $error)';
+    return 'NetworkException.notImplemented(error: $error)';
 }
 
 
@@ -1547,16 +1589,18 @@ $ServiceUnavailableCopyWith<ServiceUnavailable> get copyWith => _$ServiceUnavail
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is ServiceUnavailable&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is ServiceUnavailable&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.serviceUnavailable(error: $error)';
+    return 'NetworkException.serviceUnavailable(error: $error)';
 }
 
 
@@ -1613,16 +1657,18 @@ $NoInternetConnectionCopyWith<NoInternetConnection> get copyWith => _$NoInternet
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is NoInternetConnection&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is NoInternetConnection&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.noInternetConnection(error: $error)';
+    return 'NetworkException.noInternetConnection(error: $error)';
 }
 
 
@@ -1679,16 +1725,18 @@ $FormatExceptionCopyWith<FormatException> get copyWith => _$FormatExceptionCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FormatException&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is FormatException&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.formatException(error: $error)';
+    return 'NetworkException.formatException(error: $error)';
 }
 
 
@@ -1745,16 +1793,18 @@ $UnableToProcessCopyWith<UnableToProcess> get copyWith => _$UnableToProcessCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UnableToProcess&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is UnableToProcess&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.unableToProcess(error: $error)';
+    return 'NetworkException.unableToProcess(error: $error)';
 }
 
 
@@ -1811,16 +1861,18 @@ $DefaultErrorCopyWith<DefaultError> get copyWith => _$DefaultErrorCopyWithImpl<D
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DefaultError&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is DefaultError&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.defaultError(error: $error)';
+    return 'NetworkException.defaultError(error: $error)';
 }
 
 
@@ -1877,16 +1929,18 @@ $UnexpectedErrorCopyWith<UnexpectedError> get copyWith => _$UnexpectedErrorCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UnexpectedError&&const DeepCollectionEquality().equals(other.error, error));
+    return identical(this, other) || (other.runtimeType == runtimeType&&other is UnexpectedError&&const DeepCollectionEquality().equals(other.error, error));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+int get hashCode {
+    return Object.hash(runtimeType,const DeepCollectionEquality().hash(error));
+}
 
 @override
 String toString() {
-  return 'NetworkException.unexpectedError(error: $error)';
+    return 'NetworkException.unexpectedError(error: $error)';
 }
 
 

@@ -6,91 +6,74 @@ part 'network_exception.freezed.dart';
 @freezed
 abstract class NetworkException with _$NetworkException implements Exception {
   /// Petición cancelada.
-  const factory NetworkException.requestCancelled([dynamic error]) =
-      RequestCancelled;
+  const factory requestCancelled([dynamic error]) = RequestCancelled;
 
   /// Petición no autorizada.
-  const factory NetworkException.unauthorized([dynamic error]) =
-      UnauthorisedRequest;
+  const factory unauthorized([dynamic error]) = UnauthorisedRequest;
 
   /// Mal formada.
-  const factory NetworkException.badRequest([dynamic error]) = BadRequest;
+  const factory badRequest([dynamic error]) = BadRequest;
 
   /// Certificado inválido.
-  const factory NetworkException.badCertificate([dynamic error]) =
-      BadCertificate;
+  const factory badCertificate([dynamic error]) = BadCertificate;
 
   /// Prohibida.
-  const factory NetworkException.forbidden([dynamic error]) = Forbidden;
+  const factory forbidden([dynamic error]) = Forbidden;
 
   /// No encontrada.
-  const factory NetworkException.notFound([dynamic error]) = NotFound;
+  const factory notFound([dynamic error]) = NotFound;
 
   /// Método no permitido.
-  const factory NetworkException.methodNotAllowed([dynamic error]) =
-      MethodNotAllowed;
+  const factory methodNotAllowed([dynamic error]) = MethodNotAllowed;
 
   /// No aceptable.
-  const factory NetworkException.notAcceptable([dynamic error]) = NotAcceptable;
+  const factory notAcceptable([dynamic error]) = NotAcceptable;
 
   /// Demasiadas peticiones (rate limit).
-  const factory NetworkException.tooManyRequests([dynamic error]) =
-      TooManyRequests;
+  const factory tooManyRequests([dynamic error]) = TooManyRequests;
 
   /// Retries del interceptor agotados (status code retriable persistente).
-  const factory NetworkException.retriesExhausted([dynamic error]) =
-      RetriesExhausted;
+  const factory retriesExhausted([dynamic error]) = RetriesExhausted;
 
   /// Tiempo de espera agotado.
-  const factory NetworkException.receiveTimeout([dynamic error]) =
-      ReceiveTimeout;
+  const factory receiveTimeout([dynamic error]) = ReceiveTimeout;
 
   /// Tiempo de transformación de la respuesta agotado (decode/JSON).
-  const factory NetworkException.transformTimeout([dynamic error]) =
-      TransformTimeout;
+  const factory transformTimeout([dynamic error]) = TransformTimeout;
 
   /// Tiempo de petición agotado.
-  const factory NetworkException.requestTimeout([dynamic error]) =
-      RequestTimeout;
+  const factory requestTimeout([dynamic error]) = RequestTimeout;
 
   /// Tiempo de envío agotado.
-  const factory NetworkException.sendTimeout([dynamic error]) = SendTimeout;
+  const factory sendTimeout([dynamic error]) = SendTimeout;
 
   /// Tiempo de conexión agotado.
-  const factory NetworkException.connectionTimeout([dynamic error]) =
-      ConnectionTimeout;
+  const factory connectionTimeout([dynamic error]) = ConnectionTimeout;
 
   /// Conflictiva.
-  const factory NetworkException.conflict([dynamic error]) = Conflict;
+  const factory conflict([dynamic error]) = Conflict;
 
   /// Error interno del servidor.
-  const factory NetworkException.internalServerError([dynamic error]) =
-      InternalServerError;
+  const factory internalServerError([dynamic error]) = InternalServerError;
 
   /// No implementada.
-  const factory NetworkException.notImplemented([dynamic error]) =
-      NotImplemented;
+  const factory notImplemented([dynamic error]) = NotImplemented;
 
   /// Servicio no disponible.
-  const factory NetworkException.serviceUnavailable([dynamic error]) =
-      ServiceUnavailable;
+  const factory serviceUnavailable([dynamic error]) = ServiceUnavailable;
 
   /// Error de conexión.
-  const factory NetworkException.noInternetConnection([dynamic error]) =
-      NoInternetConnection;
+  const factory noInternetConnection([dynamic error]) = NoInternetConnection;
 
   /// Error de formato.
-  const factory NetworkException.formatException([dynamic error]) =
-      FormatException;
+  const factory formatException([dynamic error]) = FormatException;
 
   /// No procesable.
-  const factory NetworkException.unableToProcess([dynamic error]) =
-      UnableToProcess;
+  const factory unableToProcess([dynamic error]) = UnableToProcess;
 
   /// Error por defecto.
-  const factory NetworkException.defaultError([dynamic error]) = DefaultError;
+  const factory defaultError([dynamic error]) = DefaultError;
 
   /// Error inesperado.
-  const factory NetworkException.unexpectedError([dynamic error]) =
-      UnexpectedError;
+  const factory unexpectedError([dynamic error]) = UnexpectedError;
 }

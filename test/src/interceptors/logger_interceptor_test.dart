@@ -2,11 +2,11 @@ import 'package:http_provider/http_provider.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class _MockRequestHandler extends Mock implements RequestInterceptorHandler {}
+class _MockRequestHandler extends Mock implements RequestInterceptorHandler;
 
-class _MockResponseHandler extends Mock implements ResponseInterceptorHandler {}
+class _MockResponseHandler extends Mock implements ResponseInterceptorHandler;
 
-class _MockErrorHandler extends Mock implements ErrorInterceptorHandler {}
+class _MockErrorHandler extends Mock implements ErrorInterceptorHandler;
 
 void main() {
   group('LoggerOptions', () {
@@ -18,10 +18,11 @@ void main() {
       // Verifica que el default del sink sea la función `print` built-in.
       // ignore: avoid_print
       expect(options.logPrint, print);
-      expect(
-        options.redactedHeaders,
-        {'authorization', 'cookie', 'set-cookie'},
-      );
+      expect(options.redactedHeaders, {
+        'authorization',
+        'cookie',
+        'set-cookie',
+      });
     });
   });
 
@@ -49,10 +50,7 @@ void main() {
 
       interceptor.onError(err, handler);
 
-      expect(
-        logs.single,
-        matches(RegExp(r'^❌ 404 GET /users/99 \(\d+ms\)$')),
-      );
+      expect(logs.single, matches(RegExp(r'^❌ 404 GET /users/99 \(\d+ms\)$')));
       verify(() => handler.next(err)).called(1);
     });
 

@@ -14,7 +14,7 @@ class LoggerOptions {
   /// - [redactedHeaders]: headers cuyo valor se reemplaza por `***`
   ///   (comparación case-insensitive). Un set vacío desactiva la
   ///   redacción (solo para debugging local, no commitear).
-  const LoggerOptions({
+  const new({
     this.logHeaders = false,
     this.logBody = false,
     this.logPrint = print,
@@ -49,7 +49,7 @@ class LoggerOptions {
 /// conditions con requests concurrentes.
 class LoggerInterceptor extends Interceptor {
   /// Crea el interceptor con [options].
-  const LoggerInterceptor({this.options = const LoggerOptions()});
+  const new({this.options = const LoggerOptions()});
 
   /// Configuración del logger.
   final LoggerOptions options;
