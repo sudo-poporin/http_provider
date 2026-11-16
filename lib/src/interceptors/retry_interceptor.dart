@@ -16,7 +16,7 @@ class RetryInterceptor extends Interceptor {
   /// - [initialBackoffMs]: delay base. El delay del attempt N es
   ///   `initialBackoffMs * (1 << N)` ms.
   /// - [retryStatusCodes]: status codes que disparan retry. Default: `{429}`.
-  RetryInterceptor({
+  new({
     required this.dio,
     this.maxRetries = 2,
     this.initialBackoffMs = 500,
@@ -67,7 +67,7 @@ class RetryInterceptor extends Interceptor {
 class DioRetriesExhaustedException extends DioException {
   /// Crea la exception a partir del último [DioException] que disparó el
   /// retry budget exhausted.
-  DioRetriesExhaustedException(DioException source)
+  new(DioException source)
     : super(
         requestOptions: source.requestOptions,
         response: source.response,

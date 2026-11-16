@@ -5,15 +5,15 @@ import 'package:http_provider/http_provider.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-class _MockDio extends Mock implements Dio {}
+class _MockDio extends Mock implements Dio;
 
-class _MockHandler extends Mock implements ErrorInterceptorHandler {}
+class _MockHandler extends Mock implements ErrorInterceptorHandler;
 
-class _FakeRequestOptions extends Fake implements RequestOptions {}
+class _FakeRequestOptions extends Fake implements RequestOptions;
 
-class _FakeDioException extends Fake implements DioException {}
+class _FakeDioException extends Fake implements DioException;
 
-class _FakeResponse extends Fake implements Response<dynamic> {}
+class _FakeResponse extends Fake implements Response<dynamic>;
 
 void main() {
   setUpAll(() {
@@ -69,9 +69,8 @@ void main() {
           statusCode: 200,
           data: 'ok',
         );
-        when(
-          () => dio.fetch<dynamic>(any()),
-        ).thenAnswer((_) async => successResponse);
+        when(() => dio.fetch<dynamic>(any()))
+            .thenAnswer((_) async => successResponse);
 
         unawaited(interceptor.onError(err, handler));
 
@@ -146,33 +145,35 @@ void main() {
       });
     });
 
-    test('429 persistente: tras maxRetries, propaga DioRetriesExhaustedException',
-        () {
-      fakeAsync((async) {
-        final reqOptions = RequestOptions(
-          path: '/test',
-          extra: <String, dynamic>{
-            'http_provider.retryAttempt': 2, // ya hizo maxRetries retries
-          },
-        );
-        final err = DioException(
-          requestOptions: reqOptions,
-          response: Response<dynamic>(
+    test(
+      '429 persistente: tras maxRetries, propaga DioRetriesExhaustedException',
+      () {
+        fakeAsync((async) {
+          final reqOptions = RequestOptions(
+            path: '/test',
+            extra: <String, dynamic>{
+              'http_provider.retryAttempt': 2, // ya hizo maxRetries retries
+            },
+          );
+          final err = DioException(
             requestOptions: reqOptions,
-            statusCode: 429,
-          ),
-          type: DioExceptionType.badResponse,
-        );
+            response: Response<dynamic>(
+              requestOptions: reqOptions,
+              statusCode: 429,
+            ),
+            type: DioExceptionType.badResponse,
+          );
 
-        unawaited(interceptor.onError(err, handler));
-        async.flushMicrotasks();
+          unawaited(interceptor.onError(err, handler));
+          async.flushMicrotasks();
 
-        verifyNever(() => dio.fetch<dynamic>(any()));
-        final captured = verify(() => handler.next(captureAny())).captured;
-        expect(captured.length, 1);
-        expect(captured.single, isA<DioRetriesExhaustedException>());
-      });
-    });
+          verifyNever(() => dio.fetch<dynamic>(any()));
+          final captured = verify(() => handler.next(captureAny())).captured;
+          expect(captured.length, 1);
+          expect(captured.single, isA<DioRetriesExhaustedException>());
+        });
+      },
+    );
 
     test('requests concurrentes no comparten counter', () {
       fakeAsync((async) {
