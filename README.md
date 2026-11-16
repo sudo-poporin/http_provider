@@ -330,7 +330,18 @@ Secuencia de delays con defaults: 500ms, 1000ms (peor caso 1.5s acumulado antes 
 ## Dependencias 📦
 
 | Paquete | Uso |
-|---------|-----|
+| ------- | --- |
 | [dio](https://pub.dev/packages/dio) | Cliente HTTP |
 | [fpdart](https://pub.dev/packages/fpdart) | Patrón Either para manejo de errores |
+| [freezed_annotation](https://pub.dev/packages/freezed_annotation) | Anotaciones de las sealed classes |
+
+### Desarrollo
+
+| Paquete | Uso |
+| ------- | --- |
+| [build_runner](https://pub.dev/packages/build_runner) | Generación de código |
+| [fake_async](https://pub.dev/packages/fake_async) | Tiempo simulado en los tests del retry |
 | [freezed](https://pub.dev/packages/freezed) | Generación de sealed classes |
+| [mocktail](https://pub.dev/packages/mocktail) | Mocks en los tests |
+| [test](https://pub.dev/packages/test) | Tests |
+| [very_good_analysis](https://pub.dev/packages/very_good_analysis) | Reglas de lint |
